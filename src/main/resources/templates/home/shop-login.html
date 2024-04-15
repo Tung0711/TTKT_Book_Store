@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/home/layout/header.html"></th:block>
+</head>
+
+<body>
+<div class="page-wraper">
+    <div id="loading-area" class="preloader-wrapper-2">
+        <div class="preloader-inner">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header mo-left header style-1">
+        <!-- Main Header -->
+        <div class="header-info-bar">
+            <div class="container clearfix">
+                <!-- Website Logo -->
+                <div class="logo-header logo-dark">
+                    <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
+                </div>
+
+                <!-- EXTRA NAV -->
+                <div class="extra-nav">
+                    <div class="extra-cell">
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{wishlist}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                                         width="24px" fill="#000000">
+                                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                                        <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link box cart-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                                         width="24px" fill="#000000">
+                                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                                        <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li class="nav-item dropdown profile-dropdown  ms-4">
+                                <div class="extra-nav">
+                                    <div class="extra-cell">
+                                        <a th:href="@{sign-in}" class="btn btn-success btn-hover">SIGN IN</a>
+                                    </div>
+                                </div>
+                                <div class="extra-nav">
+                                    <div class="extra-cell">
+                                        <a th:href="@{sign-up}" class="btn btn-info btn-hover">SIGN UP</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- header search nav -->
+                <div class="header-search-nav">
+                    <form class="header-item-search">
+                        <div class="input-group search-input">
+                            <select class="default-select">
+                                <option>Categories</option>
+                                <option>Photography</option>
+                                <option>Arts</option>
+                                <option>Adventure</option>
+                                <option>Action</option>
+                                <option>Games</option>
+                                <option>Movies</option>
+                                <option>Comics</option>
+                                <option>Biographies</option>
+                                <option>Children’s Books</option>
+                                <option>Historical</option>
+                                <option>Contemporary</option>
+                                <option>Classics</option>
+                                <option>Education</option>
+                            </select>
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                   placeholder="Search Books Here">
+                            <button class="btn" type="button"><i class="flaticon-loupe"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Main Header End -->
+
+        <!-- Main Header -->
+        <div class="sticky-header main-bar-wraper navbar-expand-lg">
+            <div class="main-bar clearfix">
+                <div class="container clearfix">
+                    <!-- Website Logo -->
+                    <div class="logo-header logo-dark">
+                        <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
+                    </div>
+
+                    <!-- Nav Toggle Button -->
+                    <button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- Main Nav -->
+                    <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+                        <div class="logo-header logo-dark">
+                            <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt=""></a>
+                        </div>
+                        <form class="search-input">
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                                       placeholder="Search Books Here">
+                                <button class="btn" type="button"><i class="flaticon-loupe"></i></button>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav">
+                            <li class="sub-menu"><a th:href="@{index}"><span>Home</span></a></li>
+                            <li class="sub-menu-down"><a href="javascript:void(0);"><span>Shop</span></a>
+                                <ul class="sub-menu">
+                                    <li><a th:href="@{books-grid-view}">Shop View</a></li>
+                                    <li><a th:href="@{books-detail}">Shop Detail</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu-down"><a href="javascript:void(0);"><span>Shop Cart</span></a>
+                                <ul class="sub-menu">
+                                    <li><a th:href="@{shop-cart}">Cart</a></li>
+                                    <li><a th:href="@{shop-checkout}">Checkout</a></li>
+                                    <li><a th:href="@{wishlist}">Wishlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{about-us}"><span>About Us</span></a></li>
+                            <li><a th:href="@{contact-us}"><span>Contact Us</span></a></li>
+                        </ul>
+                        <div class="dz-social-icon">
+                            <ul>
+                                <li><a href="https://www.facebook.com/Tirtus7112" target="_blank"><i
+                                        class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/tirtus7112/" target="_blank"><i
+                                        class="fa-brands fa-linkedin"></i></a></li>
+                                <li><a href="https://www.instagram.com/phamtung_711/" target="_blank"><i
+                                        class="fa-brands fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Header End -->
+
+    </header>
+    <!-- Header End -->
+    <div class="page-content">
+        <!-- inner page banner -->
+        <div class="dz-bnr-inr overlay-secondary-dark dz-bnr-inr-sm"
+             style="background-image:url(/assets/images/background/bg3.jpg);">
+            <div class="container">
+                <div class="dz-bnr-inr-entry">
+                    <h1>Sign in</h1>
+                    <nav aria-label="breadcrumb" class="breadcrumb-row">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{index}"> Home</a></li>
+                            <li class="breadcrumb-item">Sign in</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner End-->
+        <!-- contact area -->
+        <section class="content-inner shop-account">
+            <!-- Product -->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="login-area">
+                            <form th:action="@{sign-in}" method="post">
+                                <h3 class="text-center text-blue">Sign in</h3>
+                                <p class="font-weight-600 text-center">If you have an account with us, please log
+                                    in.</p>
+                                <div class="mb-4">
+                                    <label class="label-title">User Name *</label>
+                                    <input name="username" class="form-control" placeholder="Your User Name"
+                                           type="text">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="label-title">Password *</label>
+                                    <input name="password" class="form-control " placeholder="Type Password"
+                                           type="password">
+                                </div>
+                                <div class="d-inline-block w-100">
+                                    <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">Remember Me</label>
+                                    </div>
+                                </div>
+                                <div class="sign-info text-center">
+                                    <button type="submit" class="btn btn-primary d-block w-100 mb-2">Sign in</button>
+                                    <span class="text-dark dark-color d-inline-block line-height-2">Don't have an account? <a
+                                            th:href="@{sign-up}" class="text-orange">Sign up</a></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product END -->
+        </section>
+    </div>
+    <th:block th:insert="/home/layout/footer.html"></th:block>
+    <button class="scroltop" type="button"><i class="fas fa-arrow-up"></i></button>
+</div>
+
+<!-- JAVASCRIPT FILES ========================================= -->
+<script th:src="@{/assets/js/jquery.min.js}"></script><!-- JQUERY MIN JS -->
+<script th:src="@{/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script><!-- BOOTSTRAP MIN JS -->
+<script th:src="@{/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<!-- BOOTSTRAP SELECT MIN JS -->
+<script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
+<script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
+<!--<script>-->
+<!--    const rememberMeCheckbox = document.getElementById('customCheck1');-->
+
+<!--    rememberMeCheckbox.addEventListener('click', () => {-->
+<!--        const isRemembered = this.checked;-->
+
+<!--        if (isRemembered) {-->
+<!--            const sessionId = generateUniqueSessionId();-->
+<!--            storeSessionIdInDatabase(userId, sessionId);-->
+<!--            setCookie('rememberMeToken', sessionId, {httpOnly: true, secure: true});-->
+<!--        }-->
+<!--    })-->
+<!--</script>-->
+</body>
+</html>
