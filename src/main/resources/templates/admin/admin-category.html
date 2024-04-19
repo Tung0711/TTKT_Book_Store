@@ -160,9 +160,9 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">No</th>
-                                        <th width="20%">Categories Name</th>
-                                        <th width="45%">Categories Description</th>
-                                        <th width="18%">Status</th>
+                                        <th width="23%">Categories Name</th>
+                                        <th width="47%">Categories Description</th>
+                                        <th width="13%">Status</th>
                                         <th width="12%">Action</th>
                                     </tr>
                                     </thead>
@@ -173,7 +173,7 @@
                                         <td th:text="${item.description}"></td>
                                         <td>
                                             <a type="button" class="btn"
-                                               th:classappend="${item.getStatus() ? 'btn-success' : 'btn-secondary'}"
+                                               th:classappend="${item.getStatus() ? 'btn-primary' : 'btn-secondary'}"
                                                th:href="@{/admin/category/status/{categoryId}(categoryId=${item.id})}"
                                                th:attr="onclick=${item.getStatus() ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' :
                                                 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }">

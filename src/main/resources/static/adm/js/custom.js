@@ -317,7 +317,6 @@ Index Of Script
           centerMode: true,
           centerPadding: false,
           variableWidth: true ,
-          infinite: true,
           focusOnSelect: true,
           autoplay: false,
           slidesToShow: 7,

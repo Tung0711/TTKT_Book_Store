@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     <th:block th:insert="/admin/layout/header.html"></th:block>
+    <style>
+        #imageInput{
+            line-height: 38px;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 <!-- loader Start -->
@@ -170,8 +176,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Book Image:</label>
-                                    <input type="file" class="form-control" th:name="imgBook" >
-                                    <input type="hidden" th:field="*{images}">
+                                    <input type="file" class="form-control" th:name="imgBook" id="imageInput">
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="custom-file">-->
+<!--                                            <input type="file" class="custom-file-input" id="inputGroupFile01" th:name="imgBook">-->
+<!--                                            <label type="hidden" class="custom-file-label" th:field="*{images}"></label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                                 <div class="form-group">
                                     <label>Book Price:</label>

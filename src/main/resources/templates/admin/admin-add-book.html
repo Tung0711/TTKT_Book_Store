@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
     <th:block th:insert="/admin/layout/header.html"></th:block>
+    <style>
+        #fileImage{
+            line-height: 38px;
+            padding: 0;
+        }
+
+        #file-upload-button {
+            background-color: #007bff;
+        }
+
+    </style>
 </head>
 <body>
 <!-- loader Start -->
@@ -163,11 +174,20 @@
                                     <label>Book Author:</label>
                                     <input type="text" class="form-control" th:field="*{author}"/>
                                 </div>
+                                    <img th:src="${images}" width="15%" id="previewImage">
                                 <div class="form-group">
                                     <label>Book Image:</label>
-                                    <input type="file" class="form-control" th:name="imgBook"
+                                    <input type="file" class="form-control" th:name="imgBook" id="fileImage"
                                            onchange="handleInputImage()">
                                     <input type="hidden" class="form-control" th:field="*{images}" id="imageChoose">
+
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <div class="custom-file">-->
+<!--                                            <input type="file" class="custom-file-input" id="inputGroupFile01" th:name="imgBook"-->
+<!--                                            onchange="handleInputImage()">-->
+<!--                                            <label type="hidden" class="custom-file-label" th:field="*{images}" id="imageChoose"></label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                                 <div class="form-group">
                                     <label>Book Price:</label>
