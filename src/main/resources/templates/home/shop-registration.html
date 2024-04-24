@@ -3,6 +3,11 @@
 
 <head>
     <th:block th:insert="/home/layout/header.html"></th:block>
+    <style>
+        .sign-in-btn:hover {
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,12 +60,12 @@
                             <li class="nav-item dropdown profile-dropdown  ms-4">
                                 <div class="extra-nav">
                                     <div class="extra-cell">
-                                        <a th:href="@{sign-in}" class="btn btn-success btn-hover">SIGN IN</a>
+                                        <a th:href="@{sign-in}" class="btn btn-outline-success sign-in-btn">SIGN IN</a>
                                     </div>
                                 </div>
                                 <div class="extra-nav">
                                     <div class="extra-cell">
-                                        <a th:href="@{sign-up}" class="btn btn-info btn-hover">SIGN UP</a>
+                                        <a th:href="@{sign-up}" class="btn btn-outline-info sign-in-btn">SIGN UP</a>
                                     </div>
                                 </div>
                             </li>
@@ -233,7 +238,7 @@
         </section>
         <!-- contact area End-->
     </div>
-    <th:block th:insert="/home/layout/footer.html"></th:block>
+    <th:block th:insert="/home/layout/footer-light.html"></th:block>
     <button class="scroltop" type="button"><i class="fas fa-arrow-up"></i></button>
 </div>
 
