@@ -1,10 +1,12 @@
-package conn.ra.service;
+package conn.ra.service.impl;
 
 import conn.ra.model.dto.request.UserRegister;
 import conn.ra.model.entity.Role;
 import conn.ra.model.entity.User;
 import conn.ra.model.enums.ERole;
 import conn.ra.repository.UserRepository;
+import conn.ra.service.RoleService;
+import conn.ra.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

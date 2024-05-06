@@ -13,5 +13,6 @@ public interface OrderService {
     Orders getBySerial(Long userId, String serial);
     List<Orders> getByStatus(Long userId, EOrder status);
     Orders save(Orders orders);
+    Orders findById(Long id);
     Orders getByIdAndStatus(Long userId, Long orderId, EOrder status);
 }

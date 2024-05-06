@@ -1,7 +1,8 @@
-package conn.ra.service;
+package conn.ra.service.impl;
 
 import conn.ra.model.entity.Categories;
 import conn.ra.repository.CatalogRepository;
+import conn.ra.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

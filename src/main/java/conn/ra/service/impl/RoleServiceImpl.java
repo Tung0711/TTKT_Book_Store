@@ -1,8 +1,9 @@
-package conn.ra.service;
+package conn.ra.service.impl;
 
 import conn.ra.model.entity.Role;
 import conn.ra.model.enums.ERole;
 import conn.ra.repository.RoleRepository;
+import conn.ra.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

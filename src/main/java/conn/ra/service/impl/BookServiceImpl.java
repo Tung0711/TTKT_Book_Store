@@ -1,7 +1,8 @@
-package conn.ra.service;
+package conn.ra.service.impl;
 
 import conn.ra.model.entity.Book;
 import conn.ra.repository.BookRepository;
+import conn.ra.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class BookServiceImpl implements BookService {
         try {
             bookRepository.save ( book );
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace ();
         }
         return false;
@@ -38,7 +39,7 @@ public class BookServiceImpl implements BookService {
         try {
             bookRepository.save ( book );
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace ();
         }
         return false;

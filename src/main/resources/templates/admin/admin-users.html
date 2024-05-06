@@ -155,23 +155,31 @@
                                     <thead>
                                     <tr>
                                         <th style="width: 5%;">No</th>
-                                        <th style="width: 14%;">Profile</th>
-                                        <th style="width: 16%;">User Name</th>
-                                        <th style="width: 16%;">Full Name</th>
-                                        <th style="width: 20%;">Email</th>
-                                        <th style="width: 14%;">Phone</th>
-                                        <th style="width: 15%;">Address</th>
+                                        <th style="width: 17%;">User Name</th>
+                                        <th style="width: 17%;">Full Name</th>
+                                        <th style="width: 21%;">Email</th>
+                                        <th style="width: 15%;">Phone</th>
+                                        <th style="width: 16%;">Address</th>
+                                        <th style="width: 9%;">Profile</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="item, index : ${user}">
                                         <td th:text="${index.count}"></td>
-                                        <td th:text="${item.images}"></td>
                                         <td th:text="${item.userName}"></td>
                                         <td th:text="${item.fullName}"></td>
                                         <td th:text="${item.email}"></td>
                                         <td th:text="${item.phone}"></td>
                                         <td th:text="${item.address}"></td>
+                                        <td>
+                                            <a type="button" class="btn"
+                                               th:classappend="${item.getStatus() ? 'btn-primary' : 'btn-secondary'}"
+                                               th:href="@{/admin/user/status/{userId}(userId=${item.id})}"
+                                               th:attr="onclick=${item.getStatus() ? 'return confirm(`Bạn có chắc muốn khóa tài khoản này ?`)' :
+                                                'return confirm(`Bạn có chắc muốn mở khóa tài khoản này ?`)' }">
+                                                <span th:text="${item.getStatus() ? 'Active' : 'Block'}"></span>
+                                            </a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

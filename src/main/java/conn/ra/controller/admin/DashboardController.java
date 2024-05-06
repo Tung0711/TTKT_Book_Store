@@ -8,7 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashboardController {
 
     @RequestMapping("/admin-dashboard")
-    public String test() {
+    public String dashboard() {
         return "admin/admin-dashboard";
+    }
+
+    @RequestMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "admin/privacy-policy";
+    }
+
+    @RequestMapping("/terms-of-service")
+    public String termsOfService() {
+        return "admin/terms-of-service";
     }
 }
