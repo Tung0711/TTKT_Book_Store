@@ -18,7 +18,7 @@
         <div class="container clearfix">
             <!-- Website Logo -->
             <div class="logo-header logo-dark">
-                <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
+                <a th:href="@{/index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
             </div>
 
             <!-- EXTRA NAV -->
@@ -26,7 +26,7 @@
                 <div class="extra-cell">
                     <ul class="navbar-nav header-right">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{wishlist}">
+                            <a class="nav-link" th:href="@{/user/wishlist}">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
                                      width="24px" fill="#000000">
                                     <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -46,13 +46,13 @@
                                 <li class="cart-item">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a th:href="@{books-detail}">
+                                            <a th:href="@{/user/books-detail}">
                                                 <img alt="" class="media-object"
                                                      th:src="@{/assets/images/books/small/pic1.jpg}">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="dz-title"><a th:href="@{books-detail}" class="media-heading">Real
+                                            <h6 class="dz-title"><a th:href="@{/user/books-detail}" class="media-heading">Real
                                                 Life</a></h6>
                                             <span class="dz-price">$28.00</span>
                                             <span class="item-close">&times;</span>
@@ -62,13 +62,13 @@
                                 <li class="cart-item">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a th:href="@{books-detail}">
+                                            <a th:href="@{/user/books-detail}">
                                                 <img alt="" class="media-object"
                                                      th:src="@{/assets/images/books/small/pic2.jpg}">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="dz-title"><a th:href="@{books-detail}" class="media-heading">Home</a>
+                                            <h6 class="dz-title"><a th:href="@{/user/books-detail}" class="media-heading">Home</a>
                                             </h6>
                                             <span class="dz-price">$28.00</span>
                                             <span class="item-close">&times;</span>
@@ -78,13 +78,13 @@
                                 <li class="cart-item">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a th:href="@{books-detail}">
+                                            <a th:href="@{/user/books-detail}">
                                                 <img alt="" class="media-object"
                                                      th:src="@{/assets/images/books/small/pic3.jpg}">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h6 class="dz-title"><a th:href="@{books-detail}" class="media-heading">Such
+                                            <h6 class="dz-title"><a th:href="@{/user/books-detail}" class="media-heading">Such
                                                 a fun age</a></h6>
                                             <span class="dz-price">$28.00</span>
                                             <span class="item-close">&times;</span>
@@ -95,9 +95,9 @@
                                     <h6 class="text-secondary">Total = $500</h6>
                                 </li>
                                 <li class="text-center d-flex">
-                                    <a th:href="@{shop-cart}" class="btn btn-sm btn-primary me-2 btn-hover w-100">View
+                                    <a th:href="@{/user/shop-cart}" class="btn btn-sm btn-primary me-2 btn-hover w-100">View
                                         Cart</a>
-                                    <a th:href="@{shop-checkout}"
+                                    <a th:href="@{/user/shop-checkout}"
                                        class="btn btn-sm btn-outline-primary btn-hover w-100">Checkout</a>
                                 </li>
                             </ul>
@@ -117,7 +117,7 @@
                                     <span>tirtus@gmail.com</span>
                                 </div>
                                 <div class="dropdown-body">
-                                    <a th:href="@{my-profile}"
+                                    <a th:href="@{/user/my-profile}"
                                        class="dropdown-item d-flex justify-content-between align-items-center ai-icon">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px"
@@ -128,7 +128,7 @@
                                             <span class="ms-2">Profile</span>
                                         </div>
                                     </a>
-                                    <a th:href="@{shop-cart}"
+                                    <a th:href="@{/user/shop-cart}"
                                        class="dropdown-item d-flex justify-content-between align-items-center ai-icon">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px"
@@ -139,7 +139,7 @@
                                             <span class="ms-2">My Order</span>
                                         </div>
                                     </a>
-                                    <a th:href="@{wishlist}"
+                                    <a th:href="@{/user/wishlist}"
                                        class="dropdown-item d-flex justify-content-between align-items-center ai-icon">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px"
@@ -196,7 +196,7 @@
             <div class="container clearfix">
                 <!-- Website Logo -->
                 <div class="logo-header logo-dark">
-                    <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
+                    <a th:href="@{/index}"><img th:src="@{/assets/images/logo.png}" alt="logo"></a>
                 </div>
 
                 <!-- Nav Toggle Button -->
@@ -211,14 +211,14 @@
                 <!-- EXTRA NAV -->
                 <div class="extra-nav">
                     <div class="extra-cell">
-                        <a th:href="@{contact-us}" class="btn btn-primary btn-hover">Get In Touch</a>
+                        <a th:href="@{/contact-us}" class="btn btn-primary btn-hover">Get In Touch</a>
                     </div>
                 </div>
 
                 <!-- Main Nav -->
                 <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                     <div class="logo-header logo-dark">
-                        <a th:href="@{index}"><img th:src="@{/assets/images/logo.png}" alt=""></a>
+                        <a th:href="@{/index}"><img th:src="@{/assets/images/logo.png}" alt=""></a>
                     </div>
                     <form class="search-input">
                         <div class="input-group">
@@ -228,29 +228,29 @@
                         </div>
                     </form>
                     <ul class="nav navbar-nav">
-                        <li class="sub-menu"><a th:href="@{index}"><span>Home</span></a></li>
+                        <li class="sub-menu"><a th:href="@{/index}"><span>Home</span></a></li>
                         <li class="sub-menu-down"><a href="javascript:void(0);"><span>Shop</span></a>
                             <ul class="sub-menu">
-                                <li><a th:href="@{books-grid-view}">Shop View</a></li>
-                                <li><a th:href="@{books-detail}">Shop Detail</a></li>
+                                <li><a th:href="@{/user/books-grid-view}">Shop View</a></li>
+                                <li><a th:href="@{/user/books-detail}">Shop Detail</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu-down"><a href="javascript:void(0);"><span>Shop Cart</span></a>
                             <ul class="sub-menu">
-                                <li><a th:href="@{shop-cart}">Cart</a></li>
-                                <li><a th:href="@{shop-checkout}">Checkout</a></li>
-                                <li><a th:href="@{wishlist}">Wishlist</a></li>
+                                <li><a th:href="@{/user/shop-cart}">Cart</a></li>
+                                <li><a th:href="@{/user/shop-checkout}">Checkout</a></li>
+                                <li><a th:href="@{/user/wishlist}">Wishlist</a></li>
                             </ul>
                         </li>
-                        <li><a th:href="@{about-us}"><span>About Us</span></a></li>
+                        <li><a th:href="@{/about-us}"><span>About Us</span></a></li>
                         <li class="sub-menu-down"><a href="javascript:void(0);"><span>Pages</span></a>
                             <ul class="sub-menu">
-                                <li><a th:href="@{my-profile}">My Profile</a></li>
+                                <li><a th:href="@{/user/my-profile}">My Profile</a></li>
                                 <li><a th:href="@{/sign-in}">Sign in</a></li>
                                 <li><a th:href="@{/sign-up}">Sign up</a></li>
                             </ul>
                         </li>
-                        <li><a th:href="@{contact-us}"><span>Contact Us</span></a></li>
+                        <li><a th:href="@{/contact-us}"><span>Contact Us</span></a></li>
                     </ul>
                     <div class="dz-social-icon">
                         <ul>

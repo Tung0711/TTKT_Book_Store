@@ -21,7 +21,7 @@ public class RoleBasedAuthenticationHandler implements AuthenticationSuccessHand
     private String determineTargetUrl(Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities ();
         if (authorities.contains ( new SimpleGrantedAuthority ( "ROLE_USER" ) )) {
-            return "user/index";
+            return "index";
         } else if (authorities.contains ( new SimpleGrantedAuthority ( "ROLE_ADMIN" ) )) {
             return "admin/admin-dashboard";
         } else {

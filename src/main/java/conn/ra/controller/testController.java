@@ -9,15 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class testController {
-    @GetMapping("/index")
-    public String Index() {
-        return "home/index";
-    }
-
-    @GetMapping("/about-us")
-    public String AboutUs() {
-        return "home/about-us";
-    }
 
     @GetMapping("/books-detail")
     public String BookDetail() {
@@ -32,11 +23,6 @@ public class testController {
     @GetMapping("/books-list")
     public String BookList() {
         return "home/books-list";
-    }
-
-    @GetMapping("/contact-us")
-    public String ContactUs() {
-        return "home/contact-us";
     }
 
     @GetMapping("/my-profile")
