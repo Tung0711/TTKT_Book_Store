@@ -1,4 +1,4 @@
-package conn.ra.config;
+package conn.ra.security.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

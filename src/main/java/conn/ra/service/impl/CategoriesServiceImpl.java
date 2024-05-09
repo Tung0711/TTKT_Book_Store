@@ -28,7 +28,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         try {
             catalogRepository.save ( categories );
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace ();
         }
         return false;
@@ -43,5 +43,10 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public void delete(Long id) {
         catalogRepository.deleteById ( id );
+    }
+
+    @Override
+    public List<Categories> getByStatus() {
+        return catalogRepository.findByStatus ( true );
     }
 }

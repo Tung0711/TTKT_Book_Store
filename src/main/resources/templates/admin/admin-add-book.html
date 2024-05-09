@@ -166,7 +166,7 @@
                                 <div class="form-group">
                                     <label>Book Category:</label>
                                     <select class="form-control" th:field="*{categories.id}">
-                                        <option th:each="item : ${categories}" th:value="${item.id}"
+                                        <option th:each="item : ${categories}" th:value="${item.id}" th:if="${item.status}"
                                                 th:text="${item.catalogName}"></option>
                                     </select>
                                 </div>

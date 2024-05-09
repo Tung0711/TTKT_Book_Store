@@ -23,21 +23,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private UserService userService;
 
     @Override
-    public List<ShoppingCart> getAll(Long userId) {
-        return shoppingCartRepository.findByUsers ( userId );
+    public List<ShoppingCart> getAllByUser(User user) {
+        return shoppingCartRepository.getAllByUsers ( user );
     }
 
     @Override
     public ShoppingCart add(ShoppingCartRequest shoppingCartRequest, Long userId) {
-        Book book = bookService.findById(shoppingCartRequest.getBookId ());
-        User user = userService.findById(userId);
+        Book book = bookService.findById ( shoppingCartRequest.getBookId () );
+        User user = userService.findById ( userId );
 
-        ShoppingCart shoppingCart = ShoppingCart.builder()
-                .orderQuantity (shoppingCartRequest.getOrderQuantity ())
-                .book (book)
-                .users(user)
-                .build();
-        return shoppingCartRepository.save(shoppingCart);
+        ShoppingCart shoppingCart = ShoppingCart.builder ()
+                .orderQuantity ( shoppingCartRequest.getOrderQuantity () )
+                .book ( book )
+                .users ( user )
+                .build ();
+        return shoppingCartRepository.save ( shoppingCart );
     }
 
     @Override
@@ -56,7 +56,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart findByBookId(Long userId, Long bookId) {
-        return shoppingCartRepository.findByUserAndBook ( userId, bookId );
+    public ShoppingCart findByUsersAndBook(User user, Book book) {
+        return shoppingCartRepository.findByUsersAndBook ( user, book );
+    }
+
+    @Override
+    public void updateQuantity(Long id, Integer quantity) {
+        ShoppingCart shoppingCart = findById ( id );
+        shoppingCart.setOrderQuantity ( quantity );
+        save ( shoppingCart );
     }
 }

@@ -19,18 +19,19 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByUserName (username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            UserPrincipal userPrincipal = UserPrincipal.builder().
-                    user(user)
-                    .authorities(user.getRoles()
-                            .stream()
-                            .map(item -> new SimpleGrantedAuthority(item.getRoleName().name()))
-                            .collect(Collectors.toSet()))
-                    .build();
-            return userPrincipal;
+        Optional<User> userOptional = userRepository.findByUserName ( username );
+        if (userOptional.isPresent ()) {
+            User user = userOptional.get ();
+            if (user.getStatus ()) {
+                return UserPrincipal.builder ().
+                        user ( user )
+                        .authorities ( user.getRoles ()
+                                .stream ()
+                                .map ( item -> new SimpleGrantedAuthority ( item.getRoleName ().name () ) )
+                                .collect ( Collectors.toSet () ) )
+                        .build ();
+            }
         }
-        throw new RuntimeException("role not found");
+        throw new RuntimeException ( "role not found" );
     }
 }

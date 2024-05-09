@@ -13,16 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserLoggedIn {
     private final UserService userService;
-    private final Logger logger = LoggerFactory.getLogger(UserLoggedIn.class);
 
-//    public User getUserLoggedIn() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            UserPrincipal userPrinciple = (UserPrincipal) authentication.getPrincipal();
-//            User userOption = userService.getUserById(userPrinciple.getUser().getId());
-//            if (userOption != null) return userOption;
-//        }
-//        logger.error("User - UserController - User id is not found.");
-//        return null;
-//    }
+    public User getUserLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext ().getAuthentication ();
+        if (authentication != null && authentication.isAuthenticated ()) {
+            UserPrincipal userPrinciple = (UserPrincipal) authentication.getPrincipal ();
+            return userService.findById ( userPrinciple.getUser ().getId () );
+        } else {
+            return null;
+        }
+    }
 }

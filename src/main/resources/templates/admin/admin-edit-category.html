@@ -147,8 +147,7 @@
                             </div>
                         </div>
                         <div class="iq-card-body">
-                            <form th:action="@{admin-edit-category /{id}}" method="post"
-                                  th:object="${Categories}">
+                            <form th:action="@{/admin/admin-edit-category/{id}}" method="post" th:object="${Categories}">
                                 <input type="text" class="form-control" th:field="*{id}" hidden="hidden"/>
                                 <div class="form-group">
                                     <label>Category Name:</label>

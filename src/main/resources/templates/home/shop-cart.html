@@ -36,97 +36,35 @@
                             <table class="table check-tbl">
                                 <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Product name</th>
+                                    <th>Images</th>
+                                    <th>Book Name</th>
                                     <th>Unit Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th class="text-end">Close</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody th:each="index : ${shoppingCarts}">
                                 <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book3.jpg}"
+                                    <td class="product-item-img"><img th:src="@{|/uploads/${index.book.images}|}"
                                                                       alt=""></td>
-                                    <td class="product-item-name">Battle Drive</td>
-                                    <td class="product-item-price">$28.00</td>
+                                    <td th:text="${index.book.bookName}"></td>
+                                    <td th:text="${index.book.price}"></td>
                                     <td class="product-item-quantity">
                                         <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical2" type="text" value="1" name="demo_vertical2"/>
+                                            <input th:id="'input_' + ${index.id}" class="cart-plus-minus-box"
+                                                   th:value="${index.orderQuantity}" th:data-product-id="${index.book.id}"
+                                                   type="text" name="demo_vertical2"
+                                                   onchange="handleChangeQuantity(this.getAttribute('data-product-id'), this.value)">
+                                            <div th:id="${index.id}" class="dec qtybutton"
+                                                 onclick="decreaseQuantity(this)"></div>
+                                            <div th:id="${index.id}" class="inc qtybutton"
+                                                 onclick="increaseQuantity(this)"></div>
                                         </div>
                                     </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book2.jpg}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name">Home</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical3" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
-                                    </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book4.jpg}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name">Such A Fun Age</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical4" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
-                                    </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book1.jpg}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name">Real Life</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical5" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
-                                    </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book6.jpg}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name">Cat Adventure</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical6" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
-                                    </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book5.jpg}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name">Take Out Tango</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical7" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
-                                    </td>
-                                    <td class="product-item-totle">$28.00</td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
+                                    <td class="product-subtotal"><span class="amount" th:id="'span_' + ${index.book.id}"
+                                                                       th:text="${index.orderQuantity * index.book.price}"></span>
+                                    <td class="product-item-close"><a th:href="@{/user/delete-cart/{id}(id=${index.book.id})}" class="ti-close"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -143,19 +81,15 @@
                                 <tbody>
                                 <tr>
                                     <td>Order Subtotal</td>
-                                    <td>$125.96</td>
+                                    <td id="subtotal" th:text="${totalPrice}"></td>
                                 </tr>
                                 <tr>
                                     <td>Shipping</td>
                                     <td>Free Shipping</td>
                                 </tr>
                                 <tr>
-                                    <td>Coupon</td>
-                                    <td>$28.00</td>
-                                </tr>
-                                <tr>
                                     <td>Total</td>
-                                    <td>$506.00</td>
+                                    <td id="total" th:text="${totalPrice}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -190,5 +124,58 @@
 <script th:src="@{/assets/js/dz.ajax.js}"></script><!-- AJAX -->
 <script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
+<script th:inline="javascript">
+    function increaseQuantity(button) {
+        console.log(1)
+        var cartId = button.getAttribute("id");
+        var input = document.getElementById(`input_${cartId}`);
+        input.value = parseInt(input.value) + 1;
+        handleChangeQuantity(input.getAttribute('data-product-id'),input.value)
+    }
+
+    function decreaseQuantity(button) {
+        console.log(2)
+        var cartId = button.getAttribute("id");
+        var input = document.getElementById(`input_${cartId}`);
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            handleChangeQuantity(input.getAttribute('data-product-id'),input.value)
+        }
+    }
+
+    function handleChangeQuantity(bookId, quantity) {
+        var totalPrice = document.getElementById(`span_${bookId}`)
+        var subtotalCart = document.getElementById("subtotal")
+        var totalCart = document.getElementById("total")
+
+        $.ajax({
+            type: "POST",
+            url: "/user/update-quantity/" + bookId,
+            data: {
+                quantity: quantity
+            },
+            success: function (response) {
+                var total = response.orderQuantity * response.book.price;
+                totalPrice.innerText = total.toFixed(1);
+                subtotalCart.innerText = handleTotalCart().toFixed(1);
+                totalCart.innerText = handleTotalCart().toFixed(1);
+                console.log(response);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    function handleTotalCart() {
+        var totalCartItems = document.querySelectorAll(".product-subtotal span");
+        let sum = 0;
+        totalCartItems.forEach(totalCartItem => {
+            sum += parseFloat(totalCartItem.textContent);
+        });
+
+        return sum;
+    }
+</script>
 </body>
 </html>
