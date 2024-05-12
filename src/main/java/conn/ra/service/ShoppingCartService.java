@@ -10,7 +10,7 @@ import java.util.List;
 public interface ShoppingCartService {
     List<ShoppingCart> getAllByUser(User user);
 
-    ShoppingCart add(ShoppingCartRequest shoppingCartRequest, Long userId);
+    ShoppingCart add(ShoppingCartRequest shoppingCartRequest, User user);
 
     ShoppingCart findById(Long id);
 

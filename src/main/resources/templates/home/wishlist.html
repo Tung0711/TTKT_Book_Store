@@ -35,25 +35,26 @@
                                     <th>Images</th>
                                     <th>Book Name</th>
                                     <th>Unit Price</th>
-                                    <th>Quantity</th>
                                     <th>Add to cart</th>
                                     <th>Close</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody th:each="item:${wishlist}">
                                 <tr>
-                                    <td class="product-item-img"><img th:src="@{/assets/images/books/grid/book3.jpg}" alt=""></td>
-                                    <td class="product-item-name">Prduct Item 1</td>
-                                    <td class="product-item-price">$28.00</td>
-                                    <td class="product-item-quantity">
-                                        <div class="quantity btn-quantity style-1 me-3">
-                                            <input id="demo_vertical2" type="text" value="1" name="demo_vertical2"/>
-                                        </div>
+                                    <td class="product-item-img"><img th:src="@{|/uploads/${item.book.images}|}" alt="">
                                     </td>
-                                    <td class="product-item-totle"><a th:href="@{shop-cart}"
-                                                                      class="btn btn-primary btnhover">Add To Cart</a>
+                                    <td class="product-item-name" th:text="${item.book.bookName}"></td>
+                                    <td class="product-item-price"
+                                        th:text="${#numbers.formatDecimal(item.book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                    <td class="product-item-totle" th:href="@{shop-cart}"><a
+                                            th:data-book-id="${item.book.id}"
+                                            href="javascript:void(0)"
+                                            onclick="handleCartClick(this.getAttribute('data-book-id'))"
+                                            class="btn btn-primary btnhover">Add To Cart</a>
                                     </td>
-                                    <td class="product-item-close"><a href="javascript:void(0);" class="ti-close"></a>
+                                    <td class="product-item-close" style="text-align: left"><a
+                                            th:href="@{/user/delete-wishlist/{id}(id=${item.id})}"
+                                            class="ti-close"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -75,7 +76,8 @@
 <!-- JAVASCRIPT FILES ========================================= -->
 <script th:src="@{/assets/js/jquery.min.js}"></script><!-- JQUERY MIN JS -->
 <script th:src="@{/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script><!-- BOOTSTRAP MIN JS -->
-<script th:src="@{/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script><!-- BOOTSTRAP SELECT MIN JS -->
+<script th:src="@{/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<!-- BOOTSTRAP SELECT MIN JS -->
 <script th:src="@{/assets/vendor/bootstrap-touchspin/bootstrap-touchspin.js}"></script><!-- BOOTSTRAP TOUCHSPIN JS -->
 <script th:src="@{/assets/vendor/counter/waypoints-min.js}"></script><!-- WAYPOINTS JS -->
 <script th:src="@{/assets/vendor/counter/counterup.min.js}"></script><!-- COUNTERUP JS -->
@@ -84,5 +86,20 @@
 <script th:src="@{/assets/js/dz.ajax.js}"></script><!-- AJAX -->
 <script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
+<script th:inline="javascript">
+    function handleCartClick(bookId) {
+        $.ajax({
+            type: "GET",
+            url: "/user/shop-cart/" + bookId,
+            success: function (response) {
+                console.log(response)
+                alert("Đã thêm vào giỏ hàng thành công");
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 </body>
 </html>

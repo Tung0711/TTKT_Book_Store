@@ -225,22 +225,26 @@
                 </div>
 
                 <div class="row book-grid-row">
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book16.jpg}" alt="book">
+                    <div class="col-book style-1" th:each="item : ${books}">
+                        <div class="dz-shop-card style-1" style="height: 470px">
+                            <div class="dz-media" style="height: 250px">
+                                <img th:src="@{|/uploads/${item.images}|}" alt="book"
+                                     style="height: 100%; object-fit: cover">
                             </div>
                             <div class="bookmark-btn style-2">
                                 <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
                                 <label class="form-check-label" for="flexCheckDefault1">
-                                    <i class="flaticon-heart"></i>
+                                    <a th:data-book-id="${item.id}"
+                                       href="javascript:void(0)"
+                                       onclick="handleWishListClick(this.getAttribute('data-book-id'))">
+                                        <i class="flaticon-heart"></i>
+                                    </a>
                                 </label>
                             </div>
                             <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Thunder Stunt</a></h5>
+                                <h5 class="title" th:text="${item.bookName}"></h5>
                                 <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">ADVANTURE,</a></li>
-                                    <li><a th:href="@{books-grid-view}">SCIENCE</a></li>
+                                    <li th:text="${item.categories.catalogName}"></li>
                                 </ul>
                                 <ul class="dz-rating">
                                     <li><i class="flaticon-star text-yellow"></i></li>
@@ -251,530 +255,13 @@
                                 </ul>
                                 <div class="book-footer">
                                     <div class="price">
-                                        <span class="price-num">$54.78</span>
-                                        <del>$70.00</del>
+                                        <span class="price-num"
+                                              th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
                                     </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book3.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault2">
-                                <label class="form-check-label" for="flexCheckDefault2">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Battler Drive</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">RACING,</a></li>
-                                    <li><a th:href="@{books-grid-view}">DRAMA</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$60.09</span>
-                                        <del>$12.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book5.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault3">
-                                <label class="form-check-label" for="flexCheckDefault3">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Take Out Tango</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">SPORTS,</a></li>
-                                    <li><a th:href="@{books-grid-view}">DRAMA</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$12.05</span>
-                                        <del>$54.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book12.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault4">
-                                <label class="form-check-label" for="flexCheckDefault4">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">The Missadventure</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">ADVENTURE</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$53.0</span>
-                                        <del>$44.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book8.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault5">
-                                <label class="form-check-label" for="flexCheckDefault5">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">The Adventure</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">ADVENTURE</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$89.0</span>
-                                        <del>$63.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book14.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault6">
-                                <label class="form-check-label" for="flexCheckDefault6">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">A Heavy Lift</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">HORROR,</a></li>
-                                    <li><a th:href="@{books-grid-view}">DRAMA</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$52.0</span>
-                                        <del>$23.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book15.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault7">
-                                <label class="form-check-label" for="flexCheckDefault7">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Terrible Madness</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">SPORTS,</a></li>
-                                    <li><a th:href="@{books-grid-view}">DRAMA</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$46.3</span>
-                                        <del>$42.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book4.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault8">
-                                <label class="form-check-label" for="flexCheckDefault8">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Such Fun Age</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">THRILLER</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$55.5</span>
-                                        <del>$36.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book9.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault9">
-                                <label class="form-check-label" for="flexCheckDefault9">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Pushing Clouds</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">DRAMA,</a></li>
-                                    <li><a th:href="@{books-grid-view}">COMEDY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$39.5</span>
-                                        <del>$54.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book2.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault10">
-                                <label class="form-check-label" for="flexCheckDefault10">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Homie</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">DRAMA,</a></li>
-                                    <li><a th:href="@{books-grid-view}">COMEDY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$25.0</span>
-                                        <del>$40.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book7.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault11">
-                                <label class="form-check-label" for="flexCheckDefault11">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">SECONDS</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">THRILLER</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$40.0</span>
-                                        <del>$32.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book13.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault12">
-                                <label class="form-check-label" for="flexCheckDefault12">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">REWORK</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">DRAMA,</a></li>
-                                    <li><a th:href="@{books-grid-view}">BIOGRAPHY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$60.5</span>
-                                        <del>$32.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book11.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault13">
-                                <label class="form-check-label" for="flexCheckDefault13">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">ALL GOOD NEWS</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">BIOGRAPHY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$92.0</span>
-                                        <del>$82.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book10.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault14">
-                                <label class="form-check-label" for="flexCheckDefault14">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Emily The Back</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">DRAMA,</a></li>
-                                    <li><a th:href="@{books-grid-view}">BIOGRAPHY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$19.5</span>
-                                        <del>$12.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book1.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault15">
-                                <label class="form-check-label" for="flexCheckDefault15">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">Real Life</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">DRAMA,</a></li>
-                                    <li><a th:href="@{books-grid-view}">BIOGRAPHY</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$ 66.0</span>
-                                        <del>$52.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
-                                            class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-book style-1">
-                        <div class="dz-shop-card style-1">
-                            <div class="dz-media">
-                                <img th:src="@{/assets/images/books/grid/book14.jpg}" alt="book">
-                            </div>
-                            <div class="bookmark-btn style-2">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault16">
-                                <label class="form-check-label" for="flexCheckDefault16">
-                                    <i class="flaticon-heart"></i>
-                                </label>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="title"><a th:href="@{books-grid-view}">A Heavy Lift</a></h5>
-                                <ul class="dz-tags">
-                                    <li><a th:href="@{books-grid-view}">HORROR,</a></li>
-                                    <li><a th:href="@{books-grid-view}">DRAMA</a></li>
-                                </ul>
-                                <ul class="dz-rating">
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                    <li><i class="flaticon-star text-yellow"></i></li>
-                                </ul>
-                                <div class="book-footer">
-                                    <div class="price">
-                                        <span class="price-num">$52.0</span>
-                                        <del>$23.0</del>
-                                    </div>
-                                    <a th:href="@{shop-cart}" class="btn btn-secondary box-btn btnhover btnhover2"><i
+                                    <a th:data-book-id="${item.id}"
+                                       href="javascript:void(0)"
+                                       onclick="handleCartClick(this.getAttribute('data-book-id'))"
+                                       class="btn btn-secondary box-btn btnhover btnhover2"><i
                                             class="flaticon-shopping-cart-1 m-r10"></i> Add to cart</a>
                                 </div>
                             </div>
@@ -912,5 +399,34 @@
 <script th:src="@{/assets/js/dz.ajax.js}"></script><!-- AJAX -->
 <script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
+<script th:inline="javascript">
+    function handleWishListClick(bookId) {
+        $.ajax({
+            type: "GET",
+            url: "/user/wishlist/" + bookId,
+            success: function (response) {
+                console.log(response)
+                alert("Đã thêm vào danh sách yêu thích thành công");
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    function handleCartClick(bookId) {
+        $.ajax({
+            type: "GET",
+            url: "/user/shop-cart/" + bookId,
+            success: function (response) {
+                console.log(response)
+                alert("Đã thêm vào giỏ hàng thành công");
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 </body>
 </html>

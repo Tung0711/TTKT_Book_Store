@@ -1,5 +1,6 @@
 package conn.ra.controller.users;
 
+import conn.ra.model.dto.request.ShoppingCartRequest;
 import conn.ra.model.entity.Book;
 import conn.ra.model.entity.ShoppingCart;
 import conn.ra.model.entity.User;
@@ -36,6 +37,23 @@ public class CartController {
         }
         model.addAttribute ( "totalPrice", totalPrice );
         return "home/shop-cart";
+    }
+
+    @GetMapping("/shop-cart/{id}")
+    public String createCart(@PathVariable("id") Long id) {
+        User user = userLoggedIn.getUserLoggedIn ();
+        Book book = bookService.findById ( id );
+        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
+        if (shoppingCart == null) {
+            ShoppingCartRequest shoppingCartRequest = new ShoppingCartRequest ();
+            shoppingCartRequest.setBookId ( id );
+            shoppingCartRequest.setOrderQuantity ( 1 );
+            shoppingCartService.add ( shoppingCartRequest, user );
+        } else {
+            shoppingCart.setOrderQuantity ( shoppingCart.getOrderQuantity () + 1 );
+            shoppingCartService.save ( shoppingCart );
+        }
+        return "redirect:/user/shop-cart";
     }
 
     @PostMapping("/add-shop-cart/{id}")

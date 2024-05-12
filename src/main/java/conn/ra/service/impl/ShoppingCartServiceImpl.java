@@ -28,10 +28,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart add(ShoppingCartRequest shoppingCartRequest, Long userId) {
+    public ShoppingCart add(ShoppingCartRequest shoppingCartRequest, User user) {
         Book book = bookService.findById ( shoppingCartRequest.getBookId () );
-        User user = userService.findById ( userId );
-
         ShoppingCart shoppingCart = ShoppingCart.builder ()
                 .orderQuantity ( shoppingCartRequest.getOrderQuantity () )
                 .book ( book )

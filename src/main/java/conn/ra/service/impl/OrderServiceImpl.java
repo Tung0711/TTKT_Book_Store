@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
                 .users ( users )
                 .totalPrice ( totalPrice )
                 .status ( EOrder.Waiting )
+                .created ( new java.sql.Date ( new java.util.Date ().getTime () ))
                 .receiveName ( users.getFullName () )
                 .receiveAddress ( users.getAddress () )
                 .receivePhone ( users.getPhone () )

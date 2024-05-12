@@ -1,11 +1,13 @@
 package conn.ra.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import conn.ra.model.base.BaseModel;
 import conn.ra.model.enums.EOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,6 +26,10 @@ public class Orders extends BaseModel {
     @Enumerated(EnumType.STRING)
     private EOrder status;
     private String note;
+
+    @Column(name = "created_at")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date created;
 
     @Column(name = "receive_name")
     private String receiveName;

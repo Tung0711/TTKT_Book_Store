@@ -4,7 +4,7 @@ import conn.ra.model.dto.request.WishlistRequest;
 import conn.ra.model.entity.Book;
 import conn.ra.model.entity.User;
 import conn.ra.model.entity.WishList;
-import conn.ra.repository.WishListRepository;
+import conn.ra.repository.WishlistRepository;
 import conn.ra.service.BookService;
 import conn.ra.service.UserService;
 import conn.ra.service.WishlistService;
@@ -16,15 +16,14 @@ import java.util.List;
 @Service
 public class WishlistServiceImpl implements WishlistService {
     @Autowired
-    private WishListRepository wishListRepository;
+    private WishlistRepository wishListRepository;
     @Autowired
     private UserService userService;
     @Autowired
     private BookService bookService;
 
     @Override
-    public WishList add(Long userId, WishlistRequest wishlistRequest) {
-        User user = userService.findById ( userId );
+    public WishList add(User user, WishlistRequest wishlistRequest) {
 
         Book book = bookService.findById ( wishlistRequest.getBookId () );
 
@@ -40,17 +39,17 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public List<WishList> getAll(Long userId) {
-        return wishListRepository.getAllByUserId ( userId );
+    public List<WishList> getAll(User user) {
+        return wishListRepository.getAllByUsers ( user );
     }
 
     @Override
-    public void delete(Long wishlistId, Long userId) {
-        wishListRepository.deleteByIdAndUserId ( wishlistId, userId );
+    public void delete(Long wishlistId, User user) {
+        wishListRepository.deleteByIdAndUsers ( wishlistId, user );
     }
 
     @Override
-    public WishList findByUserAndBook(Long userId, Long bookId) {
-        return wishListRepository.findByUserAndBook ( userId, bookId );
+    public WishList findByUserAndBook(User user, Book book) {
+        return wishListRepository.findByUsersAndBook ( user, book );
     }
 }

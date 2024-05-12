@@ -155,15 +155,16 @@
                                 <table class="data-tables table table-striped table-bordered" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th style="width: 3%;">No</th>
+                                        <th style="width: 2%;">No</th>
                                         <th style="width: 12%;">Serial Number</th>
-                                        <th style="width: 15%;">Full Name</th>
-                                        <th style="width: 13%;">Phone Number</th>
-                                        <th style="width: 14%;">Address</th>
-                                        <th style="width: 14%;">Note</th>
-                                        <th style="width: 10%;">Total</th>
-                                        <th style="width: 10%;">Status</th>
-                                        <th style="width: 12%;">Action</th>
+                                        <th style="width: 13%;">Full Name</th>
+                                        <th style="width: 10%;">Phone Number</th>
+                                        <th style="width: 10%;">Address</th>
+                                        <th style="width: 13%;">Note</th>
+                                        <th style="width: 11%;">Create Date</th>
+                                        <th style="width: 13%;">Total</th>
+                                        <th style="width: 8%;">Status</th>
+                                        <th style="width: 8%;">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -174,29 +175,22 @@
                                         <td th:text="${item.receivePhone}"></td>
                                         <td th:text="${item.receiveAddress}"></td>
                                         <td th:text="${item.note}"></td>
+                                        <td th:text="${item.created}"></td>
                                         <td class="w-auto"
                                             th:text="${#numbers.formatDecimal(item.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                         <td>
-                                            <button class="btn" disabled
+                                            <button class="btn"
                                                     th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"
                                             >
-                                                <span th:text="${item.status == 0 ?'Pending': (item.status == 1 ?'Accepted':'Denided')}"></span>
+                                                <span th:text="${item.status}"></span>
                                             </button>
                                         </td>
-<!--                                        <td>-->
-<!--                                            <div class="flex align-items-center list-user-action">-->
-<!--                                                <a class="bg-primary" data-toggle="tooltip" data-placement="top"-->
-<!--                                                   title="" data-original-title="Edit"-->
-<!--                                                   href="admin-add-book.html"><i-->
-<!--                                                        class="ri-pencil-line"></i></a>-->
-<!--                                                <td>-->
-<!--                                                    <a class="btn btn-outline-primary"-->
-<!--                                                       th:href="@{/admin-orderDetail/{id}(id=${item.id})}"-->
-<!--                                                    >Details-->
-<!--                                                    </a>-->
-<!--                                                </td>-->
-<!--                                            </div>-->
-<!--                                        </td>-->
+                                        <td>
+                                            <a class="btn btn-outline-primary"
+                                               th:href="@{/admin-orderDetail/{id}(id=${item.id})}"
+                                            >Details
+                                            </a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

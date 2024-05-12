@@ -1,16 +1,18 @@
 package conn.ra.service;
 
 import conn.ra.model.dto.request.WishlistRequest;
+import conn.ra.model.entity.Book;
+import conn.ra.model.entity.User;
 import conn.ra.model.entity.WishList;
 
 import java.util.List;
 
 public interface WishlistService {
-    WishList add(Long userId, WishlistRequest wishlistRequest);
+    WishList add(User user, WishlistRequest wishlistRequest);
 
-    List<WishList> getAll(Long userId);
+    List<WishList> getAll(User user);
 
-    void delete(Long wishlistId, Long userId);
+    void delete(Long wishlistId, User user);
 
-    WishList findByUserAndBook(Long userId, Long bookId);
+    WishList findByUserAndBook(User user, Book book);
 }
