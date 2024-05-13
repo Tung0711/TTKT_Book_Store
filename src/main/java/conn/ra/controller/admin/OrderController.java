@@ -18,6 +18,7 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
     private OrderDetailService orderDetailService;
 
     @GetMapping("/admin-orders")
@@ -28,11 +29,11 @@ public class OrderController {
     }
 
     @GetMapping("/orders_details/{id}")
-    public String ordersDetailsPage(@PathVariable Long id,Model model) {
-        List<OrderDetail> orderDetails=orderDetailService.getByOrderId ( id );
-        model.addAttribute ( "orderDetail",orderDetails );
+    public String ordersDetailsPage(@PathVariable Long id, Model model) {
+        List<OrderDetail> orderDetails = orderDetailService.getByOrderId ( id );
+        model.addAttribute ( "orderDetails", orderDetails );
         Orders orders = orderService.findById ( id );
-        model.addAttribute ( "orders",orders );
+        model.addAttribute ( "orders", orders );
         return "/admin/admin-order-details";
     }
 }

@@ -57,19 +57,19 @@ public class CartController {
     }
 
     @PostMapping("/add-shop-cart/{id}")
-    public String addCart(@PathVariable Long id) {
+    public String addCart(@PathVariable Long id, @RequestParam("quantity") int quantity) {
         User user = userLoggedIn.getUserLoggedIn ();
         Book book = bookService.findById ( id );
         ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
-        if (shoppingCart != null) {
-            shoppingCart.setOrderQuantity ( 1 + shoppingCart.getOrderQuantity () );
-            shoppingCartService.save ( shoppingCart );
-        } else {
+        if (shoppingCart == null) {
             ShoppingCart cart = new ShoppingCart ();
             cart.setBook ( bookService.findById ( id ) );
-            cart.setOrderQuantity ( 1 );
+            cart.setOrderQuantity (quantity);
             cart.setUsers ( user );
             shoppingCartService.save ( cart );
+        } else {
+            shoppingCart.setOrderQuantity ( quantity + shoppingCart.getOrderQuantity () );
+            shoppingCartService.save ( shoppingCart );
         }
         return "redirect:/user/shop-cart";
     }

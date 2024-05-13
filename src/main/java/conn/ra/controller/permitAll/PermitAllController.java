@@ -3,6 +3,7 @@ package conn.ra.controller.permitAll;
 import conn.ra.model.entity.Book;
 import conn.ra.model.entity.Categories;
 import conn.ra.model.entity.User;
+import conn.ra.security.UserDetail.UserLoggedIn;
 import conn.ra.service.BookService;
 import conn.ra.service.CategoriesService;
 import conn.ra.service.UserService;
@@ -29,6 +30,8 @@ public class PermitAllController {
     private BookService bookService;
     @Autowired
     private CategoriesService categoriesService;
+    @Autowired
+    private UserLoggedIn userLoggedIn;
 
     @GetMapping("/sign-in")
     public String SignIn() {
@@ -62,7 +65,6 @@ public class PermitAllController {
             pageable = PageRequest.of ( page, limit, Sort.by ( sort ).descending () );
         }
         Page<Book> books = bookService.getByCategoryStatus ( pageable, true );
-
         model.addAttribute ( "books", books );
         List<Categories> categories = categoriesService.getByStatus ();
         session.setAttribute ( "categories", categories );

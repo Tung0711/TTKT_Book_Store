@@ -15,7 +15,7 @@
     <!-- Sidebar  -->
     <div class="iq-sidebar">
         <div class="iq-sidebar-logo d-flex justify-content-between">
-            <a th:href="@{admin-dashboard}" class="header-logo">
+            <a th:href="@{/admin/admin-dashboard}" class="header-logo">
                 <img th:src="@{/adm/images/logo.png}" class="img-fluid rounded-normal" alt="">
                 <div class="logo-title">
                     <span class="text-primary text-uppercase">BookLand</span>
@@ -38,12 +38,12 @@
                                 class="las la-home iq-arrow-left"></i><span>Admin</span><i
                                 class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                         <ul id="admin" class="iq-submenu collapse show" data-parent="#iq-sidebar-toggle">
-                            <li><a th:href="@{admin-dashboard}"><i class="las la-house-damage"></i>Dashboard</a>
+                            <li><a th:href="@{/admin/admin-dashboard}"><i class="las la-house-damage"></i>Dashboard</a>
                             </li>
-                            <li><a th:href="@{admin-category}"><i class="ri-list-check-2"></i>Categories</a></li>
-                            <li><a th:href="@{admin-books}"><i class="ri-book-2-line"></i>Books</a></li>
-                            <li><a th:href="@{admin-users}"><i class="ri-user-line"></i>Users</a></li>
-                            <li class="active"><a th:href="@{admin-orders}"><i class="ri-shopping-cart-line"></i>Orders</a>
+                            <li><a th:href="@{/admin/admin-category}"><i class="ri-list-check-2"></i>Categories</a></li>
+                            <li><a th:href="@{/admin/admin-books}"><i class="ri-book-2-line"></i>Books</a></li>
+                            <li><a th:href="@{/admin/admin-users}"><i class="ri-user-line"></i>Users</a></li>
+                            <li class="active"><a th:href="@{/admin/admin-orders}"><i class="ri-shopping-cart-line"></i>Orders</a>
                             </li>
                         </ul>
                     </li>
@@ -69,7 +69,7 @@
                         <div class="main-circle"><i class="las la-bars"></i></div>
                     </div>
                     <div class="iq-navbar-logo d-flex justify-content-between">
-                        <a th:href="@{admin-dashboard}" class="header-logo">
+                        <a th:href="@{/admin/admin-dashboard}" class="header-logo">
                             <img th:src="@{/adm/images/logo.png}" class="img-fluid rounded-normal" alt="">
                             <div class="logo-title">
                                 <span class="text-primary text-uppercase">BookLand</span>
@@ -142,57 +142,73 @@
                     <div class="iq-card">
                         <div class="iq-card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title">Orders Lists</h4>
+                                <h4 class="card-title">Orders Detail</h4>
+                                <div class="card mt-3 px-5">
+                                    <div class="row my-3">
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Email Address</label>
+                                            <input type="text" class="form-control" th:value="${orders.users.email}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" th:value="${orders.receiveName}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control" th:value="${orders.receivePhone}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Created Date</label>
+                                            <input type="text" class="form-control" th:value="${orders.created}"
+                                                   disabled
+                                                   readonly>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">Shipping Address</label>
+                                            <textarea class="form-control" th:text="${orders.receiveAddress}" rows="2"
+                                                      disabled readonly></textarea>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Note</label>
+                                            <input type="text" class="form-control" th:value="${orders.note}" disabled
+                                                   readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Total</label>
+                                            <input type="text" class="form-control"
+                                                   th:value="${#numbers.formatDecimal(orders.totalPrice, 0, 'COMMA', 0, 'POINT') + ' USD'}"
+                                                   disabled readonly>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="iq-card-body">
                             <div class="table-responsive">
                                 <table class="data-tables table table-striped table-bordered" style="width:100%">
-                                    <thead>
+                                    <thead style="text-align: center">
                                     <tr>
-                                        <th style="width: 3%;">No</th>
-                                        <th style="width: 12%;">Serial Number</th>
-                                        <th style="width: 15%;">Full Name</th>
-                                        <th style="width: 13%;">Phone Number</th>
-                                        <th style="width: 14%;">Address</th>
-                                        <th style="width: 14%;">Note</th>
-                                        <th style="width: 10%;">Total</th>
-                                        <th style="width: 10%;">Status</th>
-                                        <th style="width: 12%;">Action</th>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 12%;">Images</th>
+                                        <th style="width: 30%;">Book Name</th>
+                                        <th style="width: 15%;">Price</th>
+                                        <th style="width: 10%;">Quantity</th>
+                                        <th style="width: 15%;">Total</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <!--                                    <tr th:each="item, index : ${orders}">-->
-                                    <!--                                        <td th:text="${index.count}"></td>-->
-                                    <!--                                        <td th:text="${item.orderNumber}"></td>-->
-                                    <!--                                        <td th:text="${item.receiveName}"></td>-->
-                                    <!--                                        <td th:text="${item.receivePhone}"></td>-->
-                                    <!--                                        <td th:text="${item.receiveAddress}"></td>-->
-                                    <!--                                        <td th:text="${item.note}"></td>-->
-                                    <!--                                        <td class="w-auto"-->
-                                    <!--                                            th:text="${#numbers.formatDecimal(item.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>-->
-                                    <!--                                        <td>-->
-                                    <!--                                            <button class="btn" disabled-->
-                                    <!--                                                    th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"-->
-                                    <!--                                            >-->
-                                    <!--                                                <span th:text="${item.status == 0 ?'Pending': (item.status == 1 ?'Accepted':'Denided')}"></span>-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td>-->
-                                    <!--                                            <div class="flex align-items-center list-user-action">-->
-                                    <!--                                                <a class="bg-primary" data-toggle="tooltip" data-placement="top"-->
-                                    <!--                                                   title="" data-original-title="Edit"-->
-                                    <!--                                                   href="book/admin-add-book.html"><i-->
-                                    <!--                                                        class="ri-pencil-line"></i></a>-->
-                                    <!--                                                <td>-->
-                                    <!--                                                    <a class="btn btn-outline-primary"-->
-                                    <!--                                                       th:href="@{/admin/orders/details/{id}(id=${item.id})}"-->
-                                    <!--                                                    >Details-->
-                                    <!--                                                    </a>-->
-                                    <!--                                                </td>-->
-                                    <!--                                            </div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
+                                    <tbody style="text-align: center">
+                                    <tr th:each="item, index : ${orderDetails}">
+                                        <td th:text="${index.count}"></td>
+                                        <td><img width="100%" th:src="@{|/uploads/${item.book.images}|}"></td>
+                                        <td th:text="${item.book.bookName}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + 'USD'}"></td>
+                                        <td th:text="${item.orderQuantity}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.orderQuantity * item.book.price,
+                                        0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

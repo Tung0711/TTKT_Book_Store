@@ -290,8 +290,10 @@
                             <div class="books-card style-1 wow fadeInUp" data-wow-delay="0.1s"
                                  style="height: 500px">
                                 <div class="dz-media" style="height: 250px">
-                                    <img th:src="@{|/uploads/${item.images}|}" alt="book"
-                                         style="height: 100%; object-fit: cover">
+                                    <a th:href="@{/user/books-detail/{id}(id=${item.id})}">
+                                        <img th:src="@{|/uploads/${item.images}|}" alt="book"
+                                             style="height: 100%; object-fit: cover">
+                                    </a>
                                 </div>
                                 <div class="dz-content">
                                     <h4 class="title" th:text="${item.bookName}"
@@ -639,7 +641,8 @@
                             <div class="dz-card style-2 wow fadeInUp" data-wow-delay="0.1s" style="height: 600px">
                                 <div class="dz-media" style="height: 300px">
                                     <a th:href="@{/user/books-detail}"><img th:src="@{|/uploads/${item.images}|}"
-                                        style="height: 100%; object-fit: cover" alt="/"></a>
+                                                                            style="height: 100%; object-fit: cover"
+                                                                            alt="/"></a>
                                 </div>
                                 <div class="dz-info">
                                     <h4 class="dz-title" th:text="${item.bookName}"><a
