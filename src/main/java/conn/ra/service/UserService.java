@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface UserService {
-    User register(User user);
+    User register(UserRegister userRegister);
     Page<User> getAll(Pageable pageable);
     User findById(Long id);
     void delete(Long id);

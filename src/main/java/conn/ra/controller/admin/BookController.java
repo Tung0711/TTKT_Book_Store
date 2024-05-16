@@ -38,19 +38,20 @@ public class BookController {
         List<Categories> categories = categoriesService.getAll ();
         model.addAttribute ( "categories", categories );
         Book book = new Book ();
+        book.setStatus ( true );
         model.addAttribute ( "book", book );
         return "admin/admin-add-book";
     }
 
     @PostMapping("/admin-add-book")
     public String create(@ModelAttribute("book") Book book, @RequestParam("imgBook") MultipartFile file) {
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename ();
         try {
-            FileCopyUtils.copy(file.getBytes (),new File (pathUpload+fileName));
+            FileCopyUtils.copy ( file.getBytes (), new File ( pathUpload + fileName ) );
             // lưu tên file vào database
-            book.setImages (fileName);
+            book.setImages ( fileName );
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException ( e );
         }
         bookService.add ( book );
         return "redirect:/admin/admin-books";
@@ -67,21 +68,31 @@ public class BookController {
 
     @PostMapping("/admin-edit-book/{id}")
     public String update(@ModelAttribute("book") Book book, @RequestParam("imgBook") MultipartFile file) {
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename ();
         try {
-            FileCopyUtils.copy(file.getBytes (),new File (pathUpload+fileName));
+            FileCopyUtils.copy ( file.getBytes (), new File ( pathUpload + fileName ) );
             // lưu tên file vào database
-            book.setImages (fileName);
+            book.setImages ( fileName );
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException ( e );
         }
+        bookService.edit ( book );
+        return "redirect:/admin/admin-books";
+    }
+
+    @GetMapping("/book/status/{id}")
+    public String updateStatus(@PathVariable("id") Long id) {
+        Book book = bookService.findById ( id );
+        book.setStatus ( !book.getStatus () );
         bookService.edit ( book );
         return "redirect:/admin/admin-books";
     }
 
     @GetMapping("/delete-book/{id}")
     public String delete(@PathVariable Long id) {
-        bookService.delete ( id );
+        Book book = bookService.findById ( id );
+        book.setStatus ( !book.getStatus () );
+        bookService.edit ( book );
         return "redirect:/admin/admin-books";
     }
 }

@@ -286,7 +286,7 @@
                 <!-- Swiper -->
                 <div class="swiper-container swiper-two">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" th:each="item : ${books}">
+                        <div class="swiper-slide" th:each="item : ${books}" th:if="${item.status}">
                             <div class="books-card style-1 wow fadeInUp" data-wow-delay="0.1s"
                                  style="height: 500px">
                                 <div class="dz-media" style="height: 250px">
@@ -432,7 +432,7 @@
                 </div>
                 <div class="swiper-container books-wrapper-3 swiper-four">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" th:each="item : ${books}">
+                        <div class="swiper-slide" th:each="item : ${books}" th:if="${item.status}">
                             <div class="books-card style-3 wow fadeInUp" data-wow-delay="0.1s"
                                  style="height: 450px">
                                 <div class="dz-media" style="height: 250px">
@@ -637,7 +637,7 @@
                 </div>
                 <div class="swiper-container book-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" th:each="item : ${books}">
+                        <div class="swiper-slide" th:each="item : ${books}" th:if="${item.status}">
                             <div class="dz-card style-2 wow fadeInUp" data-wow-delay="0.1s" style="height: 600px">
                                 <div class="dz-media" style="height: 300px">
                                     <a th:href="@{/user/books-detail}"><img th:src="@{|/uploads/${item.images}|}"

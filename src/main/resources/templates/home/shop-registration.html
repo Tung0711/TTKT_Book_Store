@@ -193,29 +193,43 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-6 mb-4">
                         <div class="login-area">
-                            <form th:action="@{sign-up}" method="post" th:object="${user}">
+                            <form th:action="@{/sign-up}" method="post" th:object="${user}">
                                 <h3 class="text-secondary text-center">Sign up</h3>
                                 <p class="font-weight-600 text-center">If you don't have an account with us, please
                                     Registration.</p>
                                 <div class="mb-4">
                                     <label class="label-title">Full Name *</label>
                                     <input class="form-control" placeholder="Your Full Name" type="text"
-                                           th:field="*{fullName}" th:validate="required">
+                                           th:field="*{fullName}"
+                                           th:classappend="${#fields.hasErrors('fullName') ? 'mb5' : ''}">
+                                    <div th:if="${#fields.hasErrors('fullName')}" class="text-danger mb5"
+                                         th:errors="*{fullName}"></div>
                                 </div>
                                 <div class="mb-4">
                                     <label class="label-title">User Name *</label>
                                     <input class="form-control" placeholder="Your User Name" type="text"
-                                           th:field="*{userName}">
+                                           th:field="*{username}"
+                                           th:classappend="${#fields.hasErrors('username') ? 'mb5' : ''}">
+                                    <div th:if="${#fields.hasErrors('username')}" class="text-danger mb5"
+                                         th:errors="*{username}"></div>
+                                    <div th:if="${errorMessage}" class="text-danger mb5"
+                                         th:text="${errorMessage}"></div>
                                 </div>
                                 <div class="mb-4">
                                     <label class="label-title">Email address *</label>
                                     <input class="form-control" placeholder="Your Email address" type="email"
-                                           th:field="*{email}">
+                                           th:field="*{email}"
+                                           th:classappend="${#fields.hasErrors('email') ? 'mb5' : ''}">
+                                    <div th:if="${#fields.hasErrors('email')}" class="text-danger mb5"
+                                         th:errors="*{email}"></div>
                                 </div>
                                 <div class="mb-4">
                                     <label class="label-title">Password *</label>
                                     <input class="form-control " placeholder="Type Password" type="password"
-                                           th:field="*{password}">
+                                           th:field="*{password}"
+                                           th:classappend="${#fields.hasErrors('password') ? 'mb5' : ''}">
+                                    <div th:if="${#fields.hasErrors('password')}" class="text-danger mb5"
+                                         th:errors="*{password}"></div>
                                 </div>
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
@@ -227,7 +241,7 @@
                                 <div class="sign-info text-center">
                                     <button type="submit" class="btn btn-primary d-block w-100 mb-2">Sign Up</button>
                                     <span class="text-dark d-inline-block line-height-2">Already Have Account ? <a
-                                            th:href="@{sign-in}" class="text-orange">Sign in</a></span>
+                                            th:href="@{/sign-in}" class="text-orange">Sign in</a></span>
                                 </div>
                             </form>
                         </div>

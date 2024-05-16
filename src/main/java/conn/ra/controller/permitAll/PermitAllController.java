@@ -1,5 +1,6 @@
 package conn.ra.controller.permitAll;
 
+import conn.ra.model.dto.request.UserRegister;
 import conn.ra.model.entity.Book;
 import conn.ra.model.entity.Categories;
 import conn.ra.model.entity.User;
@@ -25,31 +26,9 @@ import java.util.List;
 @RequestMapping("")
 public class PermitAllController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private BookService bookService;
     @Autowired
     private CategoriesService categoriesService;
-    @Autowired
-    private UserLoggedIn userLoggedIn;
-
-    @GetMapping("/sign-in")
-    public String SignIn() {
-        return "home/shop-login";
-    }
-
-    @GetMapping("/sign-up")
-    public String signUp(Model model) {
-        User user = new User ();
-        model.addAttribute ( "user", user );
-        return "home/shop-registration";
-    }
-
-    @PostMapping("/sign-up")
-    public String signUp(@ModelAttribute("user") User user) {
-        userService.register ( user );
-        return "redirect:/sign-in";
-    }
 
     @GetMapping("/index")
     public String Index(HttpSession session, Model model,

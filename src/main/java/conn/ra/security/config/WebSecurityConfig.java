@@ -25,46 +25,51 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class WebSecurityConfig {
     @Autowired
     private UserDetailsService userDetailService;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.
-                csrf(AbstractHttpConfigurer::disable).
-                authenticationProvider(authenticationProvider()).
-                authorizeHttpRequests(
-                        (auth)->auth
-                                .requestMatchers("/*").permitAll()
-                                .requestMatchers("/admin/**").hasAuthority(String.valueOf( ERole.ROLE_ADMIN))
-                                .requestMatchers("/user/**").hasAuthority(String.valueOf(ERole.ROLE_USER))
-                                .anyRequest().authenticated()
+                csrf ( AbstractHttpConfigurer::disable ).
+                authenticationProvider ( authenticationProvider () ).
+                authorizeHttpRequests (
+                        (auth) -> auth
+                                .requestMatchers ( "/*" ).permitAll ()
+                                .requestMatchers ( "/admin/**" ).hasAuthority ( String.valueOf ( ERole.ROLE_ADMIN ) )
+                                .requestMatchers ( "/user/**" ).hasAuthority ( String.valueOf ( ERole.ROLE_USER ) )
+                                .anyRequest ().authenticated ()
                 )
-                .formLogin(login -> login
-                        .loginPage("/sign-in")
-                        .loginProcessingUrl("/sign-in")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .successHandler(roleBasedAuthenticationHandler())
+                .formLogin ( login -> login
+                        .loginPage ( "/sign-in" )
+                        .loginProcessingUrl ( "/sign-in" )
+                        .usernameParameter ( "username" )
+                        .passwordParameter ( "password" )
+                        .failureUrl ( "/sign-in-error" )
+                        .successHandler ( roleBasedAuthenticationHandler () )
                 )
-                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login"))
-                .build();
+                .logout ( logout -> logout.logoutUrl ( "/logout" ).logoutSuccessUrl ( "/login" ) )
+                .build ();
     }
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-        return (web -> web.ignoring().requestMatchers("/adm/**", "/assets/**","/uploads/*"));
+        return (web -> web.ignoring ().requestMatchers ( "/adm/**", "/assets/**", "/uploads/*" ));
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder ();
     }
+
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider ();
+        authenticationProvider.setUserDetailsService ( userDetailService );
+        authenticationProvider.setPasswordEncoder ( passwordEncoder () );
         return authenticationProvider;
     }
+
     @Bean
     public AuthenticationSuccessHandler roleBasedAuthenticationHandler() {
-        return new RoleBasedAuthenticationHandler();
+        return new RoleBasedAuthenticationHandler ();
     }
 }

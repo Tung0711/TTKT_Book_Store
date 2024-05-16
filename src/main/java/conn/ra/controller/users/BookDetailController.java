@@ -40,7 +40,7 @@ public class BookDetailController {
 
     @GetMapping("/books-grid-view")
     public String Home(HttpSession session, Model model,
-                       @RequestParam(defaultValue = "16", name = "limit") int limit,
+                       @RequestParam(defaultValue = "12", name = "limit") int limit,
                        @RequestParam(defaultValue = "0", name = "page") int page,
                        @RequestParam(defaultValue = "id", name = "sort") String sort,
                        @RequestParam(defaultValue = "asc", name = "order") String order
@@ -56,12 +56,15 @@ public class BookDetailController {
         model.addAttribute ( "books", books );
         List<Categories> categories = categoriesService.getByStatus ();
         session.setAttribute ( "categories", categories );
+        model.addAttribute("totalProducts", books.getTotalElements());
+        model.addAttribute("currentPage", books.getNumber ());
+        model.addAttribute("totalPage", books.getTotalPages());
         return "/home/books-grid-view";
     }
 
     @GetMapping("/books-list")
     public String BookList(HttpSession session, Model model,
-                           @RequestParam(defaultValue = "16", name = "limit") int limit,
+                           @RequestParam(defaultValue = "10", name = "limit") int limit,
                            @RequestParam(defaultValue = "0", name = "page") int page,
                            @RequestParam(defaultValue = "id", name = "sort") String sort,
                            @RequestParam(defaultValue = "asc", name = "order") String order
@@ -77,6 +80,9 @@ public class BookDetailController {
         model.addAttribute ( "books", books );
         List<Categories> categories = categoriesService.getByStatus ();
         session.setAttribute ( "categories", categories );
+        model.addAttribute("totalProducts", books.getTotalElements());
+        model.addAttribute("currentPage", books.getNumber ());
+        model.addAttribute("totalPage", books.getTotalPages());
         return "home/books-list";
     }
 }

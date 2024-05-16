@@ -25,6 +25,7 @@ public class CategoryController {
     @GetMapping("/admin-add-category")
     public String save(Model model) {
         Categories categories = new Categories ();
+        categories.setStatus ( true );
         model.addAttribute ( "Categories", categories );
         return "admin/admin-add-category";
     }
@@ -58,7 +59,9 @@ public class CategoryController {
 
     @GetMapping("/delete-category/{id}")
     public String delete(@PathVariable Long id) {
-        categoriesService.delete ( id );
+        Categories categories = categoriesService.findById ( id );
+        categories.setStatus ( !categories.getStatus () );
+        categoriesService.edit ( categories );
         return "redirect:/admin/admin-category";
     }
 }

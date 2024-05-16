@@ -163,6 +163,7 @@
                                     <label>Book Category:</label>
                                     <select class="form-control" th:field="*{categories.id}">
                                         <option th:each="item : ${categories}" th:value="${item.id}"
+                                                th:if="${item.status}"
                                                 th:text="${item.catalogName}"></option>
                                     </select>
                                 </div>
@@ -191,6 +192,19 @@
                                 <div class="form-group">
                                     <label>Book Description:</label>
                                     <textarea class="form-control" rows="2" th:field="*{description}"></textarea>
+                                </div>
+                                <div>
+                                    <label>Status:</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="btn btn-primary active">
+                                        <input type="radio" th:field="*{status}" value="true"
+                                               th:checked="${book.status}"> Active
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" th:field="*{status}" value="false"
+                                               th:checked="${!book.status}"> Block
+                                    </label>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="reset" class="btn btn-danger">Reset</button>

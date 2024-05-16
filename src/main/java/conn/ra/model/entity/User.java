@@ -18,7 +18,7 @@ import java.util.Set;
 @Entity
 public class User extends BaseModel {
     @Column(unique = true)
-    private String userName;
+    private String username;
 
     private String fullName;
 

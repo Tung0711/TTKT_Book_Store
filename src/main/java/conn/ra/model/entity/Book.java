@@ -23,6 +23,7 @@ public class Book extends BaseModel {
     private Double price;
     @Column(name = "book_description")
     private String description;
+    private Boolean status;
     @ManyToOne
     @JoinColumn(name = "catalog_id", referencedColumnName = "id")
     private Categories categories;

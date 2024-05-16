@@ -27,22 +27,19 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User register(User user) {
-        if (userRepository.existsByUserName ( user.getUserName () )) {
-            throw new RuntimeException ( "UserName is exists" );
-        }
-
+    public User register(UserRegister userRegister) {
         Set<Role> role = new HashSet<> ();
         role.add ( roleService.findByRoleName ( ERole.ROLE_USER ) );
         User users = User.builder ()
-                .userName ( user.getUserName () )
-                .password ( passwordEncoder.encode ( user.getPassword () ) )
-                .email ( user.getEmail () )
+                .fullName ( userRegister.getFullName () )
+                .username ( userRegister.getUsername () )
+                .password ( passwordEncoder.encode ( userRegister.getPassword () ) )
+                .email ( userRegister.getEmail () )
                 .status ( true )
                 .roles ( role )
                 .build ();
         userRepository.save ( users );
-        return user;
+        return users;
     }
 
     @Override
@@ -67,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateAcc(UserRegister userRegister, Long id) {
-        if (userRepository.existsByUserName ( userRegister.getUsername () )) {
+        if (userRepository.existsByUsername ( userRegister.getUsername () )) {
             throw new RuntimeException ( "username is exists" );
         }
 
@@ -77,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
         User users = User.builder ()
                 .fullName ( userRegister.getFullName () )
-                .userName ( userRegister.getUsername () )
+                .username ( userRegister.getUsername () )
                 .password ( userOld.getPassword () )
                 .email ( userRegister.getEmail () )
                 .images ( userRegister.getImages () )
@@ -91,7 +88,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUserName(String userName) {
-        return userRepository.findByUserName ( userName );
+    public Optional<User> findByUserName(String username) {
+        return userRepository.findByUsername ( username );
     }
 }

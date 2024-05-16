@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 col-sm-12" th:each="item : ${books}">
+                    <div class="col-md-12 col-sm-12" th:each="item : ${books}" th:if="${item.status}">
                         <div class="dz-shop-card style-2">
                             <div class="dz-media">
                                 <img th:src="@{|/uploads/${item.images}|}" alt="book">
@@ -143,16 +143,22 @@
                 </div>
                 <div class="row page mt-0">
                     <div class="col-md-6">
-                        <p class="page-text">Showing 12 from 50 data</p>
+                        <p class="page-text"></p>
                     </div>
                     <div class="col-md-6">
                         <nav aria-label="Blog Pagination">
                             <ul class="pagination style-1 p-t20">
-                                <li class="page-item"><a class="page-link prev" href="javascript:void(0);">Prev</a></li>
-                                <li class="page-item"><a class="page-link active" href="javascript:void(0);">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link next" href="javascript:void(0);">Next</a></li>
+                                <li class="page-item">
+                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}" onclick="handleChangePage('minus', this.getAttribute('data-currentPage'))" class="page-link prev" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                        <i class="fa fa-chevron-left"></i>Previous</a>
+                                </li>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                    <a class="page-link" th:classappend="${i==currentPage+1?'active':''}" href="javascript:void(0)" th:data-currentPage="${currentPage}" th:data-page="${ i - 1 }" onclick="handleChangePage(this.getAttribute('data-page'), this.getAttribute('data-currentPage'))" th:text="${i}"></a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}" onclick="handleChangePage('plus', this.getAttribute('data-currentPage'))" class="page-link next" th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">
+                                        Next <i class="fa fa-chevron-right"></i></a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -275,6 +281,7 @@
 <script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
 <script th:inline="javascript">
+    let page = [[${currentPage}]];
     function handleWishListClick(bookId) {
         $.ajax({
             type: "GET",
@@ -301,6 +308,27 @@
                 console.log('Error:', error);
             }
         });
+    }
+    function handleChangePage(value, currentPage) {
+        console.log(value)
+        console.log(currentPage)
+
+        if (value === "plus") {
+            page = parseInt(currentPage) + 1;
+        } else if (value === "minus") {
+            page = parseInt(currentPage) - 1;
+        } else {
+            page = parseInt(value)
+        }
+        loadPage();
+    }
+
+    function loadPage() {
+        window.location.href = `http://localhost:8080/user/books-grid-view?page=${page}`;
+        // if (nameSearch == null) {
+        // } else {
+        //     window.location.href = `http://localhost:8080/search?keyword=${nameSearch}&limit=${limit}&page=${page}&sort=${soft}&order=${orderBy}`;
+        // }
     }
 </script>
 </body>

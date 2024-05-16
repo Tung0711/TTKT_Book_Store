@@ -161,11 +161,12 @@
                                         <th style="width: 3%;">No</th>
                                         <th style="width: 13%;">Book Image</th>
                                         <th style="width: 15%;">Book Name</th>
-                                        <th style="width: 15%;">Book Categories</th>
-                                        <th style="width: 14%;">Author</th>
-                                        <th style="width: 16%;">Description</th>
-                                        <th style="width: 12%;">Price</th>
-                                        <th style="width: 12%;">Action</th>
+                                        <th style="width: 13%;">Book Categories</th>
+                                        <th style="width: 12%;">Author</th>
+                                        <th style="width: 15%;">Description</th>
+                                        <th style="width: 10%;">Price</th>
+                                        <th style="width: 10%;">Status</th>
+                                        <th style="width: 9%;">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -176,7 +177,16 @@
                                         <td th:text="${item.categories.catalogName}"></td>
                                         <td th:text="${item.author}"></td>
                                         <td th:text="${item.description}"></td>
-                                        <td th:text="${item.price}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        <td>
+                                            <a type="button" class="btn"
+                                               th:classappend="${item.getStatus() ? 'btn-primary' : 'btn-secondary'}"
+                                               th:href="@{/admin/book/status/{bookId}(bookId=${item.id})}"
+                                               th:attr="onclick=${item.getStatus() ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' :
+                                                'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }">
+                                                <span th:text="${item.getStatus() ? 'Active' : 'Block'}"></span>
+                                            </a>
+                                        </td>
                                         <td>
                                             <div class="flex align-items-center list-user-action">
                                                 <a class="bg-primary" data-toggle="tooltip" data-placement="top"
