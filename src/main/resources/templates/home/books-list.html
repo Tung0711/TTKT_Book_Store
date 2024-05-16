@@ -61,7 +61,8 @@
                 <div class="acod-content collapse" id="collapseExample">
                     <div class="widget widget_services">
                         <div class="form-check search-content" th:each="item : ${session.categories}">
-                            <input class="form-check-input" type="checkbox" value="" id="productCheckBox1" th:text="${item.catalogName}">
+                            <input class="form-check-input" type="checkbox" value="" id="productCheckBox1"
+                                   th:text="${item.catalogName}">
                             <label class="form-check-label" for="productCheckBox1">
                             </label>
                         </div>
@@ -149,14 +150,23 @@
                         <nav aria-label="Blog Pagination">
                             <ul class="pagination style-1 p-t20">
                                 <li class="page-item">
-                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}" onclick="handleChangePage('minus', this.getAttribute('data-currentPage'))" class="page-link prev" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}"
+                                       onclick="handleChangePage('minus', this.getAttribute('data-currentPage'),this)"
+                                       class="page-link prev" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
                                         <i class="fa fa-chevron-left"></i>Previous</a>
                                 </li>
                                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
-                                    <a class="page-link" th:classappend="${i==currentPage+1?'active':''}" href="javascript:void(0)" th:data-currentPage="${currentPage}" th:data-page="${ i - 1 }" onclick="handleChangePage(this.getAttribute('data-page'), this.getAttribute('data-currentPage'))" th:text="${i}"></a>
+                                    <a class="page-link" th:classappend="${i==currentPage+1?'active':''}"
+                                       href="javascript:void(0)" th:data-currentPage="${currentPage}"
+                                       th:data-page="${ i - 1 }"
+                                       onclick="handleChangePage(this.getAttribute('data-page'), this.getAttribute('data-currentPage'),this)"
+                                       th:text="${i}"></a>
                                 </li>
                                 <li class="page-item">
-                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}" onclick="handleChangePage('plus', this.getAttribute('data-currentPage'))" class="page-link next" th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">
+                                    <a href="javascript:void(0)" th:data-currentPage="${currentPage}"
+                                       onclick="handleChangePage('plus', this.getAttribute('data-currentPage'),this)"
+                                       class="page-link next"
+                                       th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">
                                         Next <i class="fa fa-chevron-right"></i></a>
                                 </li>
                             </ul>
@@ -282,6 +292,7 @@
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
 <script th:inline="javascript">
     let page = [[${currentPage}]];
+
     function handleWishListClick(bookId) {
         $.ajax({
             type: "GET",
@@ -309,9 +320,11 @@
             }
         });
     }
-    function handleChangePage(value, currentPage) {
-        console.log(value)
-        console.log(currentPage)
+
+    function handleChangePage(value, currentPage, element) {
+        if (element.classList.contains('disabled')) {
+            return;
+        }
 
         if (value === "plus") {
             page = parseInt(currentPage) + 1;
