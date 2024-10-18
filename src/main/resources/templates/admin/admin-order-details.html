@@ -204,7 +204,7 @@
                                         <td th:text="${index.count}"></td>
                                         <td><img width="100%" th:src="@{|/uploads/${item.book.images}|}"></td>
                                         <td th:text="${item.book.bookName}"></td>
-                                        <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + 'USD'}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + 'VND'}"></td>
                                         <td th:text="${item.orderQuantity}"></td>
                                         <td th:text="${#numbers.formatDecimal(item.orderQuantity * item.book.price,
                                         0, 'COMMA', 0, 'POINT') + ' VND'}"></td>

@@ -8,7 +8,9 @@ group = 'conn.ra'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 configurations {
@@ -34,7 +36,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 }
 
 tasks.named('test') {
