@@ -22,11 +22,20 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserAccount {
     @Autowired
+    private UserLoggedIn userLoggedIn;
+    @Autowired
     private UserService userService;
+
+    @RequestMapping("/my-profile")
+    public String userDashboard(Model model) {
+        User user = userLoggedIn.getUserLoggedIn ();
+        model.addAttribute ( "user", user );
+        return "home/my-profile";
+    }
 
     @PostMapping("/update-profile/{id}")
     public String updateAcc(@ModelAttribute("users") UserRegister user, @PathVariable("id") Long id) {
         userService.updateAcc ( user, id );
-        return "redirect:/user/user-dashboard";
+        return "redirect:/user/my-profile";
     }
 }
