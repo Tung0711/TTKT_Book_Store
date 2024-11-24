@@ -9,5 +9,7 @@ import java.util.List;
 public interface OrderDetailService {
     List<OrderDetail> getByOrderId(Long orderId);
 
-    OrderDetail add(Book book, Orders orders, int orderQuantity);
+    OrderDetail add(Book books, Orders orders, int orderQuantity);
+
+    List<OrderDetail> findByOrder(Orders orders);
 }

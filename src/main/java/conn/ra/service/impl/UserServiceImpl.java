@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -43,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getAll(Pageable pageable) {
-        return userRepository.findAll ( pageable );
+    public List<User> getAll() {
+        return userRepository.findAll ();
     }
 
     @Override
@@ -63,11 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateAcc(UserRegister userRegister, Long id) {
-        if (userRepository.existsByUsername ( userRegister.getUsername () )) {
-            throw new RuntimeException ( "username is exists" );
-        }
-
+    public void updateAcc(UserRegister userRegister, Long id) {
         User userOld = findById ( id );
 
         Set<Role> roles = userOld.getRoles ();
@@ -75,20 +72,22 @@ public class UserServiceImpl implements UserService {
         User users = User.builder ()
                 .fullName ( userRegister.getFullName () )
                 .username ( userRegister.getUsername () )
+                .dateOfBirth ( userRegister.getDateOfBirth () )
                 .password ( userOld.getPassword () )
                 .email ( userRegister.getEmail () )
-                .images ( userRegister.getImages () )
+                .avatar ( userOld.getAvatar () )
                 .phone ( userRegister.getPhone () )
                 .address ( userRegister.getAddress () )
                 .status ( true )
                 .roles ( roles )
                 .build ();
         users.setId ( id );
-        return userRepository.save ( users );
+        userRepository.save ( users );
     }
 
     @Override
     public Optional<User> findByUserName(String username) {
         return userRepository.findByUsername ( username );
     }
+
 }

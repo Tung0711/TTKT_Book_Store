@@ -1,5 +1,6 @@
 package conn.ra.repository;
 
+
 import conn.ra.model.entity.Role;
 import conn.ra.model.enums.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;

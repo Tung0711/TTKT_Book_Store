@@ -29,8 +29,8 @@ public class WishlistController {
     @GetMapping("/wishlist/{id}")
     public String addWishList(@PathVariable("id") Long id) {
         User user = userLoggedIn.getUserLoggedIn ();
-        Book book = bookService.findById ( id );
-        WishList wishList = wishlistService.findByUserAndBook ( user, book );
+        Book books = bookService.findById ( id );
+        WishList wishList = wishlistService.findByUserAndBook ( user, books );
         if (wishList == null) {
             WishlistRequest wishListRequest = new WishlistRequest ();
             wishListRequest.setBookId ( id );

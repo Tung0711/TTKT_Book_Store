@@ -1,11 +1,11 @@
 package conn.ra.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import conn.ra.model.base.BaseModel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +22,11 @@ public class User extends BaseModel {
 
     private String fullName;
 
-    private String images;
+    private String avatar;
 
     private String email;
+
+    private Date dateOfBirth;
 
     private Boolean status;
 
@@ -42,6 +44,7 @@ public class User extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<> ();
+
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     List<Orders> orders;
@@ -49,4 +52,12 @@ public class User extends BaseModel {
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     List<ShoppingCart> shoppingCarts;
+
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    List<WishList> wishLists;
+
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    List<Address> addresses;
 }

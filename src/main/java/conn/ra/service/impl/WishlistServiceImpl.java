@@ -25,15 +25,15 @@ public class WishlistServiceImpl implements WishlistService {
     @Override
     public WishList add(User user, WishlistRequest wishlistRequest) {
 
-        Book book = bookService.findById ( wishlistRequest.getBookId () );
+        Book books = bookService.findById ( wishlistRequest.getBookId () );
 
-        if (book == null) {
+        if (books == null) {
             throw new RuntimeException ( "không tồn tại sách" );
         }
 
         WishList wishList = WishList.builder ()
                 .users ( user )
-                .book ( book )
+                .books ( books )
                 .build ();
         return wishListRepository.save ( wishList );
     }
@@ -49,7 +49,7 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public WishList findByUserAndBook(User user, Book book) {
-        return wishListRepository.findByUsersAndBook ( user, book );
+    public WishList findByUserAndBook(User user, Book books) {
+        return wishListRepository.findByUsersAndBooks ( user, books );
     }
 }

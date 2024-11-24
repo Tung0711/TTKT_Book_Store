@@ -7,7 +7,9 @@
 <body>
 <div class="page-wraper">
     <th:block th:insert="/home/layout/menu.html"></th:block>
-
+    <div class="alert alertError alert-warning autoHide" th:if="${error}">
+        <strong>Warning!</strong> <span th:text="${error}"></span>
+    </div>
     <div class="page-content">
         <!-- inner page banner -->
         <div class="dz-bnr-inr overlay-secondary-dark dz-bnr-inr-sm"
@@ -30,127 +32,209 @@
         <section class="content-inner-1">
             <!-- Product -->
             <div class="container">
-                <form class="shop-form" action="/user/shop-checkout" th:object="${user}" method="POST"
+                <form class="shop-form" th:action="@{/user/shop-checkout}" th:object="${checkOutInfor}" method="POST"
                       id="formCheckOut">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="widget">
                                 <h4 class="widget-title">Billing & Shipping Address</h4>
-                                <div class="form-group">
-                                    <label>Full Name</label>
-                                    <input type="text" class="form-control" th:field="*{fullName}"
-                                           placeholder="Your Full Name">
-                                </div>
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" class="form-control" th:field="*{address}" placeholder="Address">
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" th:field="*{email}"
-                                               placeholder="Email">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" th:field="*{phone}" placeholder="Phone">
+                                <div class="checkout-detail">
+                                    <div class="row g-4">
+                                        <div class="col-xxl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label style="padding-right: 15px;color: #777777;
+                                                            font-size: 15px;" for="customer-address">Sổ địa chỉ</label>
+                                                <select id="customer-address" data-bind="customerAddress">
+                                                    <option value="0">Chọn địa chỉ</option>
+                                                    <option th:each="item :${addresses}"
+                                                            th:data-name="${item.receiveName}"
+                                                            th:data-address="${item.address}"
+                                                            th:data-phone="${item.phone}">
+                                                        <span th:text="${item.receiveName}"></span>,
+                                                        <span th:text="${item.address}"></span>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="padding-right: 85%; color: #777777;
+                                                            font-size: 15px;" for="billingName">Receive Name</label>
+                                                <input type="text" class="form-control" id="billingName"
+                                                       name="billingName"
+                                                       th:field="*{receiveName}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="padding-right: 83%; color: #777777;
+                                                            font-size: 15px;" for="billingAddress">Receive
+                                                    Address</label>
+                                                <input type="text" class="form-control"
+                                                       name="billingAddress" id="billingAddress"
+                                                       th:field="*{receiveAddress}">
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label style="padding-right: 85%; color: #777777;
+                                                            font-size: 15px;">Email</label>
+                                                    <input type="email" class="form-control"
+                                                           th:field="${user.email}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label style="padding-right: 68%; color: #777777;
+                                                            font-size: 15px;" for="billingPhone">Receive Phone</label>
+                                                    <input type="text" class="form-control"
+                                                           name="billingPhone" id="billingPhone"
+                                                           th:field="*{receivePhone}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="padding-right: 93%; color: #777777;
+                                                            font-size: 15px;">Note</label>
+                                                <input type="text" class="form-control" name="note" id="note"
+                                                       data-bind="note" th:field="*{note}"
+                                                       placeholder="Notes about your order">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <button class="btn btn-primary btnhover mb-3" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#different-address">Ship to a different address <i
-                                    class="fa fa-arrow-circle-o-down"></i></button>
-                            <div id="different-address" class="collapse">
-                                <p>If you have shopped with us before, please enter your details in the boxes below. If
-                                    you are a new customer please proceed to the Billing & Shipping section.</p>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control"
-                                          placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
-                <div class="dz-divider bg-gray-dark text-gray-dark icon-center  my-5"><i
-                        class="fa fa-circle bg-white text-gray-dark"></i></div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="widget">
-                            <h4 class="widget-title">Your Order</h4>
-                            <table class="table-bordered check-tbl" style="width: 100%">
-                                <thead class="text-center">
-                                <tr>
-                                    <th style="width: 20%">IMAGE</th>
-                                    <th style="width: 50%">BOOK NAME</th>
-                                    <th style="width: 10%">QUANTITY</th>
-                                    <th style="width: 20%">TOTAL</th>
-                                </tr>
-                                </thead>
-                                <tbody th:each="item:${shoppingCart}">
-                                <tr>
-                                    <td class="product-item-img"><img th:src="@{|/uploads/${item.book.images}|}"
-                                                                      alt=""></td>
-                                    <td class="product-item-name"
-                                        th:text="${item.book.bookName}">
-                                    </td>
-                                    <td th:text="${item.orderQuantity}"></td>
-                                    <td class="product-price">
-                                        <span class="amount" th:text="${#numbers.formatDecimal(item.orderQuantity * item.book.price,
+                        <div class="col-lg-6">
+                            <div class="widget">
+                                <h4 class="widget-title">Your Order</h4>
+                                <table class="table-bordered check-tbl" style="width: 100%">
+                                    <thead class="text-center">
+                                    <tr>
+                                        <th style="width: 20%">IMAGE</th>
+                                        <th style="width: 50%">BOOK NAME</th>
+                                        <th style="width: 10%">QUANTITY</th>
+                                        <th style="width: 20%">TOTAL</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each="item:${carts}">
+                                    <tr>
+                                        <td class="product-item-img"><img th:src="@{|/uploads/${item.books.images}|}"
+                                                                          alt=""></td>
+                                        <td class="product-item-name"
+                                            th:text="${item.books.bookName}">
+                                        </td>
+                                        <td th:text="${item.orderQuantity}"></td>
+                                        <td class="product-price">
+                                        <span class="amount" th:text="${#numbers.formatDecimal(item.orderQuantity * item.books.price,
                                         0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <form class="shop-form widget" >
+
+                    <div class="dz-divider bg-gray-dark text-gray-dark icon-center  my-5"><i
+                            class="fa fa-circle bg-white text-gray-dark"></i></div>
+                    <div class="row">
+                        <div class="col-lg-6">
                             <h4 class="widget-title">Order Total</h4>
                             <table class="table-bordered check-tbl mb-4">
                                 <tbody>
                                 <tr>
                                     <td>Order Subtotal</td>
                                     <td class="product-price"
-                                        th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                 </tr>
                                 <tr>
                                     <td>Shipping</td>
-                                    <td>Free Shipping</td>
+                                    <td>15.000</td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
+                                    <input type="hidden" name="totalPriceAll" th:value="${totalPrice+15000}">
                                     <td class="product-price-total"
-                                        th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        th:text="${#numbers.formatDecimal(totalPrice+15000, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-lg-6">
                             <h4 class="widget-title">Payment Method</h4>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Name on Card">
+                            <div class="checkout-detail">
+                                <div class="accordion accordion-flush custom-accordion"
+                                     id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="flush-headingFour">
+                                            <div class="accordion-button collapsed"
+                                                 data-bs-toggle="collapse"
+                                                 data-bs-target="#flush-collapseFour">
+                                                <div class="custom-form-check form-check mb-0">
+                                                    <label class="form-check-label"
+                                                           for="paymentMethod1">
+                                                        <input class="form-check-input mt-0" type="radio"
+                                                               name="flexRadioDefault" id="paymentMethod1"
+                                                               onclick="appearTypePay()" checked>
+                                                        Thanh toán khi nhận hàng</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="flush-collapseFour"
+                                             class="accordion-collapse collapse show"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <p class="cod-review">Vui lòng kiểm tra mã đơn hàng,
+                                                    mã vận chuyển và thông tin người gửi trước khi thanh
+                                                    toán.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="flush-headingTwo">
+                                            <div class="accordion-button collapsed"
+                                                 data-bs-toggle="collapse"
+                                                 data-bs-target="#flush-collapseTwo">
+                                                <div class="custom-form-check form-check mb-0">
+                                                    <label class="form-check-label" for="paymentMethod2">
+                                                        <input class="form-check-input mt-0" type="radio"
+                                                               name="flexRadioDefault" id="paymentMethod2"
+                                                               onclick="appearTypePay()">
+                                                        Thanh toán Online Banking</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <div class="row g-2">
+                                                    <div class="col-12" id="typePay">
+                                                        <div class="select-option">
+                                                            <div class="form-floating theme-form-floating">
+                                                                <select class="form-select theme-form-select"
+                                                                        name="typePay">
+                                                                    <option>Chọn phương thức thanh toán
+                                                                    </option>
+                                                                    <option value="NCB">NCB</option>
+                                                                    <option value="VISA">VISA</option>
+                                                                    <option value="MasterCard">MasterCard
+                                                                    </option>
+                                                                    <option value="JCB">JCB</option>
+                                                                    <option value="VCB">VCB</option>
+                                                                </select>
+                                                                <label>Select Other Bank</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <select class="default-select">
-                                    <option value="">Credit Card Type</option>
-                                    <option value="">Another option</option>
-                                    <option value="">A option</option>
-                                    <option value="">Potato</option>
-                                </select>
+                                <button class="btn btn-primary btnhover" type="submit">
+                                    Place Order Now
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Credit Card Number">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Card Verification Number">
-                            </div>
-                        </form>
-                        <div class="form-group">
-                            <button class="btn btn-primary btnhover" type="submit" onclick="handleCheckOutSubmit()">Place Order Now</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- Product END -->
         </section>
@@ -171,10 +255,49 @@
 <script th:src="@{/assets/js/dz.ajax.js}"></script><!-- AJAX -->
 <script th:src="@{/assets/js/custom.js}"></script><!-- CUSTOM JS -->
 <script th:src="@{/assets/vendor/wow/wow.min.js}"></script><!-- WOW JS -->
-<script th:inline="javascript">
-    function handleCheckOutSubmit() {
-        console.log(document.getElementById('formCheckOut'))
-        document.getElementById('formCheckOut').submit();
+<script>
+    $(document).ready(function () {
+        $('#customer-address').change(function () {
+            var selectedOption = $(this).find(':selected');
+            var name = selectedOption.data('name');
+            var address = selectedOption.data('address');
+            var phone = selectedOption.data('phone');
+
+            $('#billingName').val(name);
+            $('#billingAddress').val(address);
+            $('#billingPhone').val(phone);
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        var select = document.getElementById('customer-address');
+        var nameInput = document.getElementById('billingName');
+        var addressInput = document.getElementById('billingAddress');
+        var phoneInput = document.getElementById('billingPhone');
+
+        select.addEventListener('change', function () {
+            var selectedOption = select.options[select.selectedIndex];
+            var name = selectedOption.value;
+            var address = selectedOption.value;
+            var phone = selectedOption.value;
+
+            nameInput.value = name;
+            addressInput.value = address;
+            phoneInput.value = phone;
+        });
+    });
+
+    function appearTypePay() {
+        const paymentMethod1 = document.getElementById('paymentMethod1');
+        const typePay = document.getElementById('typePay');
+        const formCheckOut = document.getElementById('formCheckOut');
+
+        if (paymentMethod1.checked) {
+            typePay.style.display = "none";
+            formCheckOut.action = "/user/shop-checkout";
+        } else {
+            typePay.style.display = "block";
+            formCheckOut.action = "/user/payment";
+        }
     }
 </script>
 </body>

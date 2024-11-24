@@ -1,10 +1,11 @@
 package conn.ra.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,8 +22,9 @@ public class UserRegister {
     private String fullName;
     @NotBlank(message = "Không được bỏ trống")
     private String password;
-    private String images;
+    private String avatar;
     @Pattern(regexp = "^0[1-9]\\d{8}$", message = "Số điện thoại chưa được định dạng đúng")
     private String phone;
     private String address;
+    private Date dateOfBirth;
 }

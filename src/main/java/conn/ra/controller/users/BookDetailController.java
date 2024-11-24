@@ -5,7 +5,6 @@ import conn.ra.model.entity.Book;
 import conn.ra.model.entity.Categories;
 import conn.ra.service.BookService;
 import conn.ra.service.CategoriesService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,21 +28,40 @@ public class BookDetailController {
     private CategoriesService categoriesService;
 
     @GetMapping("/books-detail/{id}")
-    public String bookDetail(Model model, @PathVariable("id") Long id) {
+    public String bookThumbnail(Model model,
+                                @PathVariable("id") Long id,
+                                @RequestParam(defaultValue = "4", name = "limit") int limit,
+                                @RequestParam(defaultValue = "1", name = "page") int page,
+                                @RequestParam(defaultValue = "id", name = "sort") String sort,
+                                @RequestParam(defaultValue = "asc", name = "order") String order
+    ) {
+        Pageable pageable;
+        if (order.equals ( "asc" )) {
+            pageable = PageRequest.of ( page, limit, Sort.by ( sort ).ascending () );
+        } else {
+            pageable = PageRequest.of ( page, limit, Sort.by ( sort ).descending () );
+        }
+        Page<Book> book = bookService.getByCategoryStatus ( pageable, true );
+        model.addAttribute ( "book", book );
+        Pageable pageable02 = PageRequest.of ( 0, 12, Sort.by ( "id" ).ascending () );
+        Page<Book> book02 = bookService.getByCategoryStatus ( pageable02, true );
+        model.addAttribute ( "book02", book02 );
+
         ShoppingCartRequest shoppingCartRequest = new ShoppingCartRequest ();
         shoppingCartRequest.setOrderQuantity ( 1 );
-        Book book = bookService.findById ( id );
-        model.addAttribute ( "book", book );
+        Book books = bookService.findById ( id );
+        model.addAttribute ( "books", books );
         model.addAttribute ( "shoppingCartRequest", shoppingCartRequest );
-        return "/home/books-detail";
+        return "home/books-detail";
     }
 
     @GetMapping("/books-grid-view")
-    public String Home(HttpSession session, Model model,
-                       @RequestParam(defaultValue = "12", name = "limit") int limit,
-                       @RequestParam(defaultValue = "0", name = "page") int page,
-                       @RequestParam(defaultValue = "id", name = "sort") String sort,
-                       @RequestParam(defaultValue = "asc", name = "order") String order
+    public String shopLeftSidebar(Model model,
+                                  @RequestParam(defaultValue = "12", name = "limit") int limit,
+                                  @RequestParam(defaultValue = "0", name = "page") int page,
+                                  @RequestParam(defaultValue = "id", name = "sort") String sort,
+                                  @RequestParam(defaultValue = "asc", name = "order") String order,
+                                  @RequestParam(name = "keyword", required = false) String keyword
     ) {
         Pageable pageable;
         if (order.equals ( "asc" )) {
@@ -55,19 +73,22 @@ public class BookDetailController {
 
         model.addAttribute ( "books", books );
         List<Categories> categories = categoriesService.getByStatus ();
-        session.setAttribute ( "categories", categories );
-        model.addAttribute("totalProducts", books.getTotalElements());
-        model.addAttribute("currentPage", books.getNumber ());
-        model.addAttribute("totalPage", books.getTotalPages());
-        return "/home/books-grid-view";
+        model.addAttribute ( "categories", categories );
+        model.addAttribute ( "totalProducts", books.getTotalElements () );
+        model.addAttribute ( "currentPage", books.getNumber () );
+        model.addAttribute ( "totalPage", books.getTotalPages () );
+        model.addAttribute ( "keyword", keyword );
+        model.addAttribute ( "sort", sort );
+        model.addAttribute ( "order", order );
+        return "home/books-grid-view";
     }
-
     @GetMapping("/books-list")
-    public String BookList(HttpSession session, Model model,
-                           @RequestParam(defaultValue = "10", name = "limit") int limit,
-                           @RequestParam(defaultValue = "0", name = "page") int page,
-                           @RequestParam(defaultValue = "id", name = "sort") String sort,
-                           @RequestParam(defaultValue = "asc", name = "order") String order
+    public String shopList(Model model,
+                                  @RequestParam(defaultValue = "12", name = "limit") int limit,
+                                  @RequestParam(defaultValue = "0", name = "page") int page,
+                                  @RequestParam(defaultValue = "id", name = "sort") String sort,
+                                  @RequestParam(defaultValue = "asc", name = "order") String order,
+                                  @RequestParam(name = "keyword", required = false) String keyword
     ) {
         Pageable pageable;
         if (order.equals ( "asc" )) {
@@ -79,10 +100,13 @@ public class BookDetailController {
 
         model.addAttribute ( "books", books );
         List<Categories> categories = categoriesService.getByStatus ();
-        session.setAttribute ( "categories", categories );
-        model.addAttribute("totalProducts", books.getTotalElements());
-        model.addAttribute("currentPage", books.getNumber ());
-        model.addAttribute("totalPage", books.getTotalPages());
+        model.addAttribute ( "categories", categories );
+        model.addAttribute ( "totalProducts", books.getTotalElements () );
+        model.addAttribute ( "currentPage", books.getNumber () );
+        model.addAttribute ( "totalPage", books.getTotalPages () );
+        model.addAttribute ( "keyword", keyword );
+        model.addAttribute ( "sort", sort );
+        model.addAttribute ( "order", order );
         return "home/books-list";
     }
 }

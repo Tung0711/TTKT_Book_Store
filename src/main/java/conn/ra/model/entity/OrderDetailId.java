@@ -11,5 +11,5 @@ import java.io.Serializable;
 @Builder
 public class OrderDetailId implements Serializable {
     private Orders orders;
-    private Book book;
+    private Book books;
 }

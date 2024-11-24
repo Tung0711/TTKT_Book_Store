@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <th:block th:insert="/admin/layout/header.html"></th:block>
+</head>
+<body>
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center">
+    </div>
+</div>
+<!-- loader END -->
+<!-- Wrapper Start -->
+<div class="wrapper">
+    <th:block th:insert="/admin/layout/sidebar.html"></th:block>
+    <!-- TOP Nav Bar -->
+    <div class="iq-top-navbar">
+        <div class="iq-navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <div class="iq-menu-bt d-flex align-items-center">
+                    <div class="wrapper-menu">
+                        <div class="main-circle"><i class="las la-bars"></i></div>
+                    </div>
+                    <div class="iq-navbar-logo d-flex justify-content-between">
+                        <a th:href="@{/admin/admin-dashboard}" class="header-logo">
+                            <img th:src="@{/adm/images/logo.png}" class="img-fluid rounded-normal" alt="">
+                            <div class="logo-title">
+                                <span class="text-primary text-uppercase">BookLand</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-breadcrumb">
+                    <h4 class="mb-0 text-dark">Dashboard</h4>
+                    <p class="mb-0"><span class="text-primary">Hi there,</span> Welcome back Your profile</p>
+                </div>
+                <div class="iq-search-bar">
+                    <form action="#" class="searchbox">
+                        <input type="text" class="text search-input" placeholder="Search Here...">
+                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                    </form>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-label="Toggle navigation">
+                    <i class="ri-menu-3-line"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-list">
+                        <li class="nav-item nav-icon search-content">
+                            <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
+                                <i class="ri-search-line"></i>
+                            </a>
+                            <form action="#" class="search-box p-0">
+                                <input type="text" class="text search-input" placeholder="Type here to search...">
+                                <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                            </form>
+                        </li>
+                        <li class="line-height pt-3">
+                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                                <img th:src="@{/adm/images/user/001.jpg}" class="img-fluid rounded-circle mr-3"
+                                     alt="user">
+                                <div class="caption">
+                                    <h6 class="mb-1 line-height">Havoc</h6>
+                                    <p class="mb-0 text-primary">$20.32</p>
+                                </div>
+                            </a>
+                            <div class="iq-sub-dropdown iq-user-dropdown">
+                                <div class="iq-card shadow-none m-0">
+                                    <div class="iq-card-body p-0 ">
+                                        <div class="bg-primary p-3">
+                                            <h5 class="mb-0 text-white line-height">Hello Havoc</h5>
+                                            <span class="text-white font-size-12">Available</span>
+                                        </div>
+                                        <div class="d-inline-block w-100 text-center p-3">
+                                            <a class="bg-primary iq-sign-btn" th:href="@{/sign-in}" role="button">Sign
+                                                out<i
+                                                        class="ri-login-box-line ml-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- TOP Nav Bar END -->
+    <!-- Page Content  -->
+    <div id="content-page" class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Invoice Detail</h4>
+                                <div class="iq-card-header-toolbar d-flex align-items-center" style="padding-left: 850px">
+                                    <a th:href="@{/admin/admin-add-invoiceDetail}"
+                                       class="btn btn-primary">
+                                        <i data-feather="plus-square"></i>Thêm sản phẩm vào phiếu
+                                    </a>
+                                </div>
+                                <div class="card mt-3 px-5">
+                                    <div class="row my-3">
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Vendor Name</label>
+                                            <input type="text" class="form-control"
+                                                   th:value="${invoice.vendor.vendorName}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Serial Number</label>
+                                            <input type="text" class="form-control" th:value="${invoice.serialNumber}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Created Date</label>
+                                            <input type="text" class="form-control" th:value="${invoice.created}"
+                                                   disabled
+                                                   readonly>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-3">
+                                            <label class="form-label">Total</label>
+                                            <input type="text" class="form-control"
+                                                   th:value="${#numbers.formatDecimal(invoice.totalPrice, 0, 'COMMA', 0, 'POINT') + ' USD'}"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="col-md-12 col-12 mb-3">
+                                            <label class="form-label">Note</label>
+                                            <input type="text" class="form-control" th:value="${invoice.note}" disabled
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <div class="table-responsive">
+                                <table class="data-tables table table-striped table-bordered" style="width:100%">
+                                    <thead style="text-align: center">
+                                    <tr>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 12%;">Images</th>
+                                        <th style="width: 30%;">Book Name</th>
+                                        <th style="width: 15%;">Price</th>
+                                        <th style="width: 10%;">Quantity</th>
+                                        <th style="width: 15%;">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="text-align: center">
+                                    <tr th:each="item, index : ${invoiceDetail}">
+                                        <td th:text="${index.count}"></td>
+                                        <td><img width="100%" th:src="@{|/uploads/${item.books.images}|}"></td>
+                                        <td th:text="${item.books.bookName}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + 'VND'}"></td>
+                                        <td th:text="${item.orderQuantity}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.orderQuantity * item.books.price,
+                                        0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Wrapper END -->
+<!-- Footer -->
+<th:block th:insert="/admin/layout/footer.html"></th:block>
+<!-- Footer END -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/adm/js/jquery.min.js}"></script>
+<script th:src="@{/adm/js/popper.min.js}"></script>
+<script th:src="@{/adm/js/bootstrap.min.js}"></script>
+<script th:src="@{/adm/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/adm/js/dataTables.bootstrap4.min.js}"></script>
+<!-- Appear JavaScript -->
+<script th:src="@{/adm/js/jquery.appear.js}"></script>
+<!-- Countdown JavaScript -->
+<script th:src="@{/adm/js/countdown.min.js}"></script>
+<!-- Counterup JavaScript -->
+<script th:src="@{/adm/js/waypoints.min.js}"></script>
+<script th:src="@{/adm/js/jquery.counterup.min.js}"></script>
+<!-- Wow JavaScript -->
+<script th:src="@{/adm/js/wow.min.js}"></script>
+<!-- Apexcharts JavaScript -->
+<script th:src="@{/adm/js/apexcharts.js}"></script>
+<!-- Slick JavaScript -->
+<script th:src="@{/adm/js/slick.min.js}"></script>
+<!-- Select2 JavaScript -->
+<script th:src="@{/adm/js/select2.min.js}"></script>
+<!-- Owl Carousel JavaScript -->
+<script th:src="@{/adm/js/owl.carousel.min.js}"></script>
+<!-- Magnific Popup JavaScript -->
+<script th:src="@{/adm/js/jquery.magnific-popup.min.js}"></script>
+<!-- Smooth Scrollbar JavaScript -->
+<script th:src="@{/adm/js/smooth-scrollbar.js}"></script>
+<!-- lottie JavaScript -->
+<script th:src="@{/adm/js/lottie.js}"></script>
+<!-- am core JavaScript -->
+<script th:src="@{/adm/js/core.js}"></script>
+<!-- am charts JavaScript -->
+<script th:src="@{/adm/js/charts.js}"></script>
+<!-- am animated JavaScript -->
+<script th:src="@{/adm/js/animated.js}"></script>
+<!-- am kelly JavaScript -->
+<script th:src="@{/adm/js/kelly.js}"></script>
+<!-- am maps JavaScript -->
+<script th:src="@{/adm/js/maps.js}"></script>
+<!-- am worldLow JavaScript -->
+<script th:src="@{/adm/js/worldLow.js}"></script>
+<!-- Raphael-min JavaScript -->
+<script th:src="@{/adm/js/raphael-min.js}"></script>
+<!-- Morris JavaScript -->
+<script th:src="@{/adm/js/morris.js}"></script>
+<!-- Morris min JavaScript -->
+<script th:src="@{/adm/js/morris.min.js}"></script>
+<!-- Flatpicker Js -->
+<script th:src="@{/adm/js/flatpickr.js}"></script>
+<!-- Style Customizer -->
+<script th:src="@{/adm/js/style-customizer.js}"></script>
+<!-- Chart Custom JavaScript -->
+<script th:src="@{/adm/js/chart-custom.js}"></script>
+<!-- Custom JavaScript -->
+<script th:src="@{/adm/js/custom.js}"></script>
+</body>
+</html>

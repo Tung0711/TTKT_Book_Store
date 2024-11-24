@@ -41,13 +41,13 @@
                                 </thead>
                                 <tbody th:each="item:${wishlist}">
                                 <tr>
-                                    <td class="product-item-img"><img th:src="@{|/uploads/${item.book.images}|}" alt="">
+                                    <td class="product-item-img"><img th:src="@{|/uploads/${item.books.images}|}" alt="">
                                     </td>
-                                    <td class="product-item-name" th:text="${item.book.bookName}"></td>
+                                    <td class="product-item-name" th:text="${item.books.bookName}"></td>
                                     <td class="product-item-price"
-                                        th:text="${#numbers.formatDecimal(item.book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        th:text="${#numbers.formatDecimal(item.books.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                     <td class="product-item-totle" th:href="@{shop-cart}"><a
-                                            th:data-book-id="${item.book.id}"
+                                            th:data-book-id="${item.books.id}"
                                             href="javascript:void(0)"
                                             onclick="handleCartClick(this.getAttribute('data-book-id'))"
                                             class="btn btn-primary btnhover">Add To Cart</a>

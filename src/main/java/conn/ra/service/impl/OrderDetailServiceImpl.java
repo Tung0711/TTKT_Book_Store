@@ -21,14 +21,19 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
-    public OrderDetail add(Book book, Orders orders, int orderQuantity) {
+    public OrderDetail add(Book books, Orders orders, int orderQuantity) {
         OrderDetail orderDetail = OrderDetail.builder ()
                 .orders ( orders )
-                .book ( book )
-                .name ( book.getBookName () )
-                .price ( book.getPrice () )
+                .books ( books )
+                .price ( books.getPrice () )
                 .orderQuantity ( orderQuantity )
+                .create ( new java.sql.Date ( new java.util.Date ().getTime () ) )
                 .build ();
         return orderDetailRepository.save ( orderDetail );
+    }
+
+    @Override
+    public List<OrderDetail> findByOrder(Orders orders) {
+        return orderDetailRepository.findAllByOrders ( orders );
     }
 }

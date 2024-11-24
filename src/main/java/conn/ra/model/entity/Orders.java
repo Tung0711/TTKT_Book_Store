@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import conn.ra.model.base.BaseModel;
 import conn.ra.model.enums.EOrder;
+import conn.ra.model.enums.PaymentMethods;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,13 +19,14 @@ import java.util.List;
 @Entity
 public class Orders extends BaseModel {
     @Column(name = "serial_number")
-    private String orderNumber;
+    private String serialNumber;
 
     @Column(name = "total_price")
     private Double totalPrice;
 
     @Enumerated(EnumType.STRING)
     private EOrder status;
+
     private String note;
 
     @Column(name = "created_at")
@@ -39,6 +41,9 @@ public class Orders extends BaseModel {
 
     @Column(name = "receive_phone")
     private String receivePhone;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethods paymentMethods;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

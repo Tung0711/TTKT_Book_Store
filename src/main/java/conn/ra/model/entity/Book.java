@@ -16,22 +16,40 @@ import java.util.List;
 public class Book extends BaseModel {
     @Column(name = "book_images")
     private String images;
+
     @Column(name = "book_name", unique = true)
     private String bookName;
+
     @Column(name = "book_author")
     private String author;
+
     private Double price;
-    @Column(name = "book_description")
+
+    private Double costPrice;
+
     private String description;
+
     private Boolean status;
+
+    private Integer stockQuantity;
+
     @ManyToOne
     @JoinColumn(name = "catalog_id", referencedColumnName = "id")
     private Categories categories;
-    @OneToMany(mappedBy = "book")
+
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
     List<OrderDetail> orderDetails;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
     List<ShoppingCart> shoppingCarts;
+
+    @OneToMany(mappedBy = "books")
+    @JsonIgnore
+    List<WishList> wishLists;
+
+    @OneToMany(mappedBy = "books")
+    @JsonIgnore
+    List<InvoiceDetail> invoiceDetails;
 }

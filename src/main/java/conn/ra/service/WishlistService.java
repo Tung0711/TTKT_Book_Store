@@ -14,5 +14,5 @@ public interface WishlistService {
 
     void delete(Long wishlistId, User user);
 
-    WishList findByUserAndBook(User user, Book book);
+    WishList findByUserAndBook(User user, Book books);
 }

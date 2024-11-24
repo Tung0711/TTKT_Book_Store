@@ -1,7 +1,10 @@
 package conn.ra.model.entity;
 
 import conn.ra.model.base.BaseModel;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 
@@ -14,7 +17,7 @@ import lombok.*;
 public class ShoppingCart extends BaseModel {
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    private Book book;
+    private Book books;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

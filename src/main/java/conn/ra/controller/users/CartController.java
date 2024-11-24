@@ -5,11 +5,9 @@ import conn.ra.model.entity.Book;
 import conn.ra.model.entity.ShoppingCart;
 import conn.ra.model.entity.User;
 import conn.ra.security.UserDetail.UserLoggedIn;
-import conn.ra.security.UserDetail.UserPrincipal;
-import conn.ra.service.*;
+import conn.ra.service.BookService;
+import conn.ra.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +31,7 @@ public class CartController {
         model.addAttribute ( "shoppingCarts", shoppingCarts );
         double totalPrice = (double) 0;
         for (ShoppingCart item : shoppingCarts) {
-            totalPrice += item.getBook ().getPrice () * item.getOrderQuantity ();
+            totalPrice += item.getBooks ().getPrice () * item.getOrderQuantity ();
         }
         model.addAttribute ( "totalPrice", totalPrice );
         return "home/shop-cart";
@@ -42,8 +40,8 @@ public class CartController {
     @GetMapping("/shop-cart/{id}")
     public String createCart(@PathVariable("id") Long id) {
         User user = userLoggedIn.getUserLoggedIn ();
-        Book book = bookService.findById ( id );
-        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
+        Book books = bookService.findById ( id );
+        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, books );
         if (shoppingCart == null) {
             ShoppingCartRequest shoppingCartRequest = new ShoppingCartRequest ();
             shoppingCartRequest.setBookId ( id );
@@ -56,15 +54,15 @@ public class CartController {
         return "redirect:/user/shop-cart";
     }
 
-    @PostMapping("/add-shop-cart/{id}")
+    @PostMapping("/add-cart/{id}")
     public String addCart(@PathVariable Long id, @RequestParam("quantity") int quantity) {
         User user = userLoggedIn.getUserLoggedIn ();
-        Book book = bookService.findById ( id );
-        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
+        Book books = bookService.findById ( id );
+        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, books );
         if (shoppingCart == null) {
             ShoppingCart cart = new ShoppingCart ();
-            cart.setBook ( bookService.findById ( id ) );
-            cart.setOrderQuantity (quantity);
+            cart.setBooks ( bookService.findById ( id ) );
+            cart.setOrderQuantity ( quantity );
             cart.setUsers ( user );
             shoppingCartService.save ( cart );
         } else {
@@ -74,20 +72,11 @@ public class CartController {
         return "redirect:/user/shop-cart";
     }
 
-    @PostMapping("/edit-shop-cart/{id}")
-    public String editCart(
-            @PathVariable("id") Long id,
-            @RequestParam("quantity") int quantity) {
-        User user = userLoggedIn.getUserLoggedIn ();
-        shoppingCartService.updateQuantity ( id, quantity );
-        return "redirect:/user/shop-cart";
-    }
-
     @GetMapping("/delete-cart/{id}")
     public String deleteCart(@PathVariable("id") Long id) {
         User user = userLoggedIn.getUserLoggedIn ();
-        Book book = bookService.findById ( id );
-        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
+        Book books = bookService.findById ( id );
+        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, books );
         if (shoppingCart != null) {
             shoppingCartService.delete ( shoppingCart.getId () );
         }
@@ -98,8 +87,8 @@ public class CartController {
     @ResponseBody
     public ShoppingCart updateQuantity(@PathVariable("id") Long id, @RequestParam("quantity") int quantity) {
         User user = userLoggedIn.getUserLoggedIn ();
-        Book book = bookService.findById ( id );
-        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, book );
+        Book books = bookService.findById ( id );
+        ShoppingCart shoppingCart = shoppingCartService.findByUsersAndBook ( user, books );
         shoppingCart.setOrderQuantity ( quantity );
         return shoppingCartService.save ( shoppingCart );
     }

@@ -1,5 +1,6 @@
 package conn.ra.service;
 
+import conn.ra.model.dto.Response.CheckOutInforDTO;
 import conn.ra.model.dto.request.ShoppingCartRequest;
 import conn.ra.model.entity.Book;
 import conn.ra.model.entity.ShoppingCart;
@@ -18,7 +19,9 @@ public interface ShoppingCartService {
 
     void delete(Long id);
 
-    ShoppingCart findByUsersAndBook(User user, Book book);
+    ShoppingCart findByUsersAndBook(User user, Book books);
 
-    void updateQuantity(Long id, Integer quantity);
+    void checkOut(CheckOutInforDTO checkOutInforDTO);
+
+    void deleteByUser(User user);
 }

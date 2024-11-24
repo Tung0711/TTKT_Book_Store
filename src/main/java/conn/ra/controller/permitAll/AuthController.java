@@ -46,7 +46,7 @@ public class AuthController {
             return "home/shop-registration";
         }
         if (userRepository.existsByUsername ( userRegister.getUsername () )) {
-            redirectAttributes.addFlashAttribute ( "errorMessage", "userName is exits" );
+            redirectAttributes.addFlashAttribute ( "errorMessage", "tên người dùng đã tồn tại" );
             return "redirect:/sign-up";
         }
         userService.register ( userRegister );

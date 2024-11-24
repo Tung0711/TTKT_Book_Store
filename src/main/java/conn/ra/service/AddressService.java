@@ -1,16 +1,23 @@
 package conn.ra.service;
 
+
 import conn.ra.model.dto.request.AddressRequest;
 import conn.ra.model.entity.Address;
+import conn.ra.model.entity.User;
 
 import java.util.List;
 
 public interface AddressService {
-    Address add(AddressRequest addressRequest, Long userId);
+    void add(AddressRequest addressRequest);
 
-    void delete(Long addressId, Long userId);
+    void edit(AddressRequest addressRequest, Long id);
+
+    void delete(Long addressId, User user);
 
     List<Address> getAll(Long id);
 
-    Address findById(Long addressId, Long userId);
+    Address findById(Long addressId);
+
+    List<Address> getAllByUser(User user);
+
 }

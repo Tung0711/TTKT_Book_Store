@@ -14,5 +14,6 @@ public interface CategoriesService {
     Boolean edit(Categories categories);
 
     void delete(Long id);
+
     List<Categories> getByStatus();
 }

@@ -41,9 +41,30 @@
                             <li><a th:href="@{admin-dashboard}"><i class="las la-house-damage"></i>Dashboard</a>
                             </li>
                             <li><a th:href="@{admin-category}"><i class="ri-list-check-2"></i>Categories</a></li>
-                            <li><a th:href="@{admin-books}"><i class="ri-book-2-line"></i>Books</a></li>
+                            <li><a th:href="@{admin-books}"><i class="ri-book-2-line"></i>Books</a>
+                            </li>
                             <li><a th:href="@{admin-users}"><i class="ri-user-line"></i>Users</a></li>
+                            <li><a th:href="@{admin-vendor}"><i class="ri-shield-user-line"></i>Vendor</a></li>
+                            <li><a th:href="@{admin-invoice}"><i class="ri-folder-line"></i>Invoice</a></li>
                             <li class="active"><a th:href="@{admin-orders}"><i class="ri-shopping-cart-line"></i>Orders</a>
+                            </li>
+                            <li class="nav-item iq-dropdown">
+                                <a href="#report" class="iq-waves-effect" data-toggle="collapse"
+                                   aria-expanded="false"><span
+                                        class="ripple rippleEffect"></span><i
+                                        class="ri-file-chart-line iq-arrow-left"></i><span>Report</span><i
+                                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                <ul id="report" class="iq-submenu collapse">
+                                    <li>
+                                        <a th:href="@{/admin/revenue-report}">Revenue Report</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/admin/sales-report}">Sales Report</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/admin/import-report}">Import Report</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -110,10 +131,10 @@
                         </li>
                         <li class="line-height pt-3">
                             <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                                <img th:src="@{/adm/images/user/1.jpg}" class="img-fluid rounded-circle mr-3"
+                                <img th:src="@{/adm/images/user/001.jpg}" class="img-fluid rounded-circle mr-3"
                                      alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-1 line-height">Tirtus Dvalin</h6>
+                                    <h6 class="mb-1 line-height">Havoc</h6>
                                     <p class="mb-0 text-primary">$20.32</p>
                                 </div>
                             </a>
@@ -121,7 +142,7 @@
                                 <div class="iq-card shadow-none m-0">
                                     <div class="iq-card-body p-0 ">
                                         <div class="bg-primary p-3">
-                                            <h5 class="mb-0 text-white line-height">Hello Tirtus Dvalin</h5>
+                                            <h5 class="mb-0 text-white line-height">Hello Havoc</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                         <div class="d-inline-block w-100 text-center p-3">
@@ -152,7 +173,7 @@
                         </div>
                         <div class="iq-card-body">
                             <div class="table-responsive">
-                                <table class="data-tables table table-striped table-bordered" style="width:100%">
+                                <table class="data-tables table table-striped table-bordered" style="width:100%" id="table-id">
                                     <thead>
                                     <tr>
                                         <th style="width: 3%;">No</th>
@@ -169,7 +190,7 @@
                                     <tbody>
                                     <tr th:each="item, index : ${orders}">
                                         <td th:text="${index.count}"></td>
-                                        <td th:text="${item.orderNumber}"></td>
+                                        <td th:text="${item.serialNumber}"></td>
                                         <td th:text="${item.receiveName}"></td>
                                         <td th:text="${item.receivePhone}"></td>
                                         <td th:text="${item.receiveAddress}"></td>
@@ -177,16 +198,43 @@
                                         <td class="w-auto"
                                             th:text="${#numbers.formatDecimal(item.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                         <td>
-                                            <button class="btn"
-                                                    th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"
-                                            >
-                                                <span th:text="${item.status}"></span>
-                                            </button>
+                                                <span class="badge statusOrders" th:id="*{item.id}"
+                                                      th:name="*{item.id}"
+                                                      th:text="*{item.status}"></span>
                                         </td>
                                         <td>
-                                            <a class="btn btn-outline-primary"
-                                               th:href="@{orders_details/{id}(id=${item.id})}">Details
-                                            </a>
+                                            <div class="btn-group">
+                                                <a class="btn btn-outline-primary"
+                                                   th:href="@{admin-order-details/{id}(id=${item.id})}">Details
+                                                </a>
+                                                <button
+                                                        class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" data-display="static">
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <button class="dropdown-item" th:name="*{item.id}"
+                                                            onclick="changeStatusOrders('Waiting',this.getAttribute('name'))">
+                                                        Waiting
+                                                    </button>
+                                                    <button class="dropdown-item" th:name="*{item.id}"
+                                                            onclick="changeStatusOrders('Confirm',this.getAttribute('name'))">
+                                                        Confirm
+                                                    </button>
+                                                    <button class="dropdown-item" th:name="*{item.id}"
+                                                            onclick="changeStatusOrders('Delivery',this.getAttribute('name'))">
+                                                        Delivery
+                                                    </button>
+                                                    <button class="dropdown-item" th:name="*{item.id}"
+                                                            onclick="changeStatusOrders('Success',this.getAttribute('name'))">
+                                                        Success
+                                                    </button>
+                                                    <button class="dropdown-item" th:name="*{item.id}"
+                                                            onclick="changeStatusOrders('Cancel',this.getAttribute('name'))">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -259,5 +307,122 @@
 <script th:src="@{/adm/js/chart-custom.js}"></script>
 <!-- Custom JavaScript -->
 <script th:src="@{/adm/js/custom.js}"></script>
+<script>
+    const badgeSpans = document.querySelectorAll('.statusOrders');
+    badgeSpans.forEach(function (span) {
+        switch (span.textContent.trim()) {
+            case 'Waiting': {
+                span.textContent = "Waiting";
+                break;
+            }
+            case 'Success': {
+                span.textContent = "Success";
+                break;
+            }
+            case 'Delivery': {
+                span.textContent = "Delivery";
+                break;
+            }
+            case 'Confirm': {
+                span.textContent = "Confirm";
+                break;
+            }
+            case 'Cancel': {
+                span.textContent = "Cancel";
+                break;
+            }
+        }
+    });
+</script>
+<script>
+    function ColorOrders() {
+        const badgeSpans = document.querySelectorAll('#table-id .badge');
+        badgeSpans.forEach(function (span) {
+            span.classList.remove(...span.classList);
+            switch (span.textContent) {
+                case 'Waiting': {
+                    span.classList.add('badge-warning', 'badge');
+                    break;
+                }
+                case 'Success': {
+                    span.classList.add('badge-success', 'badge')
+                    break;
+                }
+                case 'Delivery': {
+                    span.classList.add('badge-primary', 'badge');
+                    break;
+                }
+                case 'Confirm': {
+                    span.classList.add('badge-info', 'badge');
+                    break;
+                }
+                case 'Cancel': {
+                    span.classList.add('badge-danger', 'badge');
+                    break;
+                }
+            }
+        });
+    }
+
+    function changeColorOrder(id) {
+        const badgeSpans = document.getElementById(id);
+        badgeSpans.classList.remove(...badgeSpans.classList);
+        switch (badgeSpans.textContent.trim()) {
+            case 'Waiting': {
+                badgeSpans.textContent = "Waiting";
+                badgeSpans.classList.add('badge-warning', 'badge');
+                break;
+            }
+            case 'Success': {
+                badgeSpans.textContent = "Success";
+                badgeSpans.classList.add('badge-success', 'badge');
+                $("tr[name='" + id + "']").remove();
+                break;
+            }
+            case 'Delivery': {
+                badgeSpans.textContent = "Delivery";
+                badgeSpans.classList.add('badge-primary', 'badge');
+                break;
+            }
+            case 'Confirm': {
+                badgeSpans.textContent = "Confirm";
+                badgeSpans.classList.add('badge-info', 'badge');
+                break;
+            }
+            case 'Cancel': {
+                badgeSpans.textContent = "Cancel";
+                badgeSpans.classList.add('badge-danger', 'badge');
+                break;
+            }
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', ColorOrders);
+
+    function changeStatusOrders(status, id) {
+        $.ajax({
+            type: "GET",
+            url: '/admin/updateStatus/' + id,
+            data: {status: status},
+            success: function (data) {
+                $("span[name='" + id + "']").text(data.status);
+                changeColorOrder(id);
+                console.log('Yêu cầu đã được gửi thành công.');
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error('Đã xảy ra lỗi: ' + error);
+            }
+        });
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdownElements = document.querySelectorAll('.dropdown-toggle');
+        dropdownElements.forEach(function (dropdown) {
+            new bootstrap.Dropdown(dropdown);
+        });
+    });
+</script>
 </body>
 </html>

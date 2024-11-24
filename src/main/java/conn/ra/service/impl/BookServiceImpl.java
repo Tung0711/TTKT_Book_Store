@@ -1,5 +1,6 @@
 package conn.ra.service.impl;
 
+import conn.ra.model.dto.request.BookRequest;
 import conn.ra.model.entity.Book;
 import conn.ra.repository.BookRepository;
 import conn.ra.service.BookService;
@@ -26,9 +27,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Boolean add(Book book) {
+    public Book add(BookRequest bookRequest) {
+        Book books = new Book ();
+        books.setBookName ( bookRequest.getBookName () );
+        books.setAuthor ( bookRequest.getAuthor () );
+        books.setDescription ( bookRequest.getDescription () );
+        books.setImages ( bookRequest.getImage () );
+        books.setPrice ( bookRequest.getUnitPrice () );
+        books.setCategories ( bookRequest.getCategories () );
+        books.setStatus ( true );
+        return bookRepository.save ( books );
+    }
+
+    @Override
+    public Boolean edit(Book books) {
         try {
-            bookRepository.save ( book );
+            bookRepository.save ( books );
             return true;
         } catch (Exception e) {
             e.printStackTrace ();
@@ -37,15 +51,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Boolean edit(Book book) {
-        try {
-            bookRepository.save ( book );
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-        return false;
+    public Book save(Book books) {
+        return bookRepository.save ( books );
     }
+
 
     @Override
     public void delete(Long id) {
@@ -55,5 +64,25 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> getByCategoryStatus(Pageable pageable, Boolean status) {
         return bookRepository.findByCatalogStatus ( pageable, status );
+    }
+
+    @Override
+    public Page<Book> getByCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findByCatalogId ( id, pageable );
+    }
+
+    @Override
+    public List<Book> getByStatus() {
+        return bookRepository.findByStatus ( true );
+    }
+
+    @Override
+    public Page<Book> searchByName(String name, Pageable pageable) {
+        return bookRepository.findAllByBookNameContainingIgnoreCase ( name, pageable );
+    }
+
+    @Override
+    public List<Book> findByCategory(Long categoryId) {
+        return bookRepository.findAllByCategory ( categoryId );
     }
 }

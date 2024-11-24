@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @Builder
 public class AddressRequest {
-    private String address;
-    private String phone;
+    private String receiveAddress;
+    private String receivePhone;
     private String receiveName;
 }

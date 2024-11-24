@@ -14,11 +14,11 @@
                     <div class="col">
                         <div class="dz-box">
                             <div class="dz-media">
-                                <img th:src="@{|/uploads/${book.images}|}" alt="book">
+                                <img th:src="@{|/uploads/${books.images}|}" alt="book">
                             </div>
                             <div class="dz-content">
                                 <div class="dz-header">
-                                    <h3 class="title" th:text="${book.bookName}"></h3>
+                                    <h3 class="title" th:text="${books.bookName}"></h3>
                                     <div class="shop-item-rating">
                                         <div class="d-lg-flex d-sm-inline-flex d-flex align-items-center">
                                             <ul class="dz-rating">
@@ -49,7 +49,7 @@
                                                 <div class="writer-info">
                                                     <div>
                                                         <span>Written by</span>
-                                                        <strong th:text="${book.author}"></strong>
+                                                        <strong th:text="${books.author}"></strong>
                                                     </div>
                                                 </div>
                                             </li>
@@ -65,12 +65,12 @@
                                     <div class="book-footer">
                                         <div class="price">
                                             <span>Price: </span>
-                                            <h5 style="margin-left: 5px" th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></h5>
+                                            <h5 style="margin-left: 5px" th:text="${#numbers.formatDecimal(books.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></h5>
                                         </div>
                                         <form class="product-num" onsubmit="handleSubmit(event)">
                                             <div class="quantity btn-quantity style-1 me-3">
                                                 <input class="cart-plus-minus-box"
-                                                       th:data-product-id="${book.id}" value="1"
+                                                       th:data-product-id="${books.id}" value="1"
                                                        id="input-quantity"
                                                        type="text" name="demo_vertical2">
                                                 <div class="dec qtybutton"></div>
@@ -82,7 +82,7 @@
                                             <div class="bookmark-btn style-1 d-none d-sm-block">
                                                 <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
                                                 <label class="form-check-label" for="flexCheckDefault1">
-                                                    <a th:data-book-id="${book.id}"
+                                                    <a th:data-book-id="${books.id}"
                                                        href="javascript:void(0)"
                                                        onclick="handleWishListClick(this.getAttribute('data-book-id'))">
                                                         <i class="flaticon-heart"></i>
@@ -109,23 +109,23 @@
                                     <table class="table border book-overview">
                                         <tr>
                                             <th>Book Title</th>
-                                            <td th:text="${book.bookName}"></td>
+                                            <td th:text="${books.bookName}"></td>
                                         </tr>
                                         <tr>
                                             <th>Author</th>
-                                            <td th:text="${book.author}"></td>
+                                            <td th:text="${books.author}"></td>
                                         </tr>
                                         <tr>
                                             <th>Categories</th>
-                                            <td th:text="${book.categories.catalogName}"></td>
+                                            <td th:text="${books.categories.catalogName}"></td>
                                         </tr>
                                         <tr>
                                             <th>Price</th>
-                                            <td th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                            <td th:text="${#numbers.formatDecimal(books.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                         </tr>
                                         <tr>
                                             <th>Book Description</th>
-                                            <td th:text="${book.description}"></td>
+                                            <td th:text="${books.description}"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -307,7 +307,7 @@
         var bookId = input.getAttribute("data-product-id")
         $.ajax({
             type: "POST",
-            url: "/user/add-shop-cart/" + bookId,
+            url: "/user/add-cart/" + bookId,
             data: {
                 quantity: input.value
             },

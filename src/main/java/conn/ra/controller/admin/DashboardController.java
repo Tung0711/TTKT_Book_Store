@@ -12,13 +12,4 @@ public class DashboardController {
         return "admin/admin-dashboard";
     }
 
-    @RequestMapping("/privacy-policy")
-    public String privacyPolicy() {
-        return "admin/privacy-policy";
-    }
-
-    @RequestMapping("/terms-of-service")
-    public String termsOfService() {
-        return "admin/terms-of-service";
-    }
 }

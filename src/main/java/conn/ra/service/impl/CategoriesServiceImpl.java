@@ -26,6 +26,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public Boolean add(Categories categories) {
         try {
+            categories.setStatus ( true );
             catalogRepository.save ( categories );
             return true;
         } catch (Exception e) {

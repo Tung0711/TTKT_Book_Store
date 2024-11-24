@@ -1,7 +1,9 @@
 package conn.ra.model.entity;
 
 import conn.ra.model.base.BaseModel;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
@@ -17,6 +19,5 @@ public class WishList extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    private Book book;
+    private Book books;
 }
-
